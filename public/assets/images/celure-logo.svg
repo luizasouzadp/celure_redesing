@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 170" width="100%" height="100%">
+  <defs>
+    <!-- Gradiente Principal Verde-Água / Cyan Oficial -->
+    <linearGradient id="celureTealGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00F5D4" />
+      <stop offset="40%" stop-color="#00DFBA" />
+      <stop offset="100%" stop-color="#00C4A7" />
+    </linearGradient>
+
+    <!-- Sombra suave para a fita interna -->
+    <linearGradient id="ribbonShadowGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#004D40" stop-opacity="0.8" />
+      <stop offset="60%" stop-color="#00897B" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#00DFBA" stop-opacity="0" />
+    </linearGradient>
+  </defs>
+
+  <!-- Tipografia Celure -->
+  <g transform="translate(10, 0)">
+    <text x="10" y="96" 
+          fill="url(#celureTealGradient)" 
+          font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" 
+          font-size="88" 
+          font-weight="800" 
+          letter-spacing="-1.5px">Celure</text>
+
+    <!-- Tagline: onde seus sonhos voam -->
+    <text x="14" y="136" 
+          fill="#00DFBA" 
+          font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" 
+          font-size="18" 
+          font-weight="400" 
+          letter-spacing="1.5px">
+      onde seus <tspan font-weight="800" fill="#00F5D4">sonhos</tspan> voam
+    </text>
+
+    <!-- Instagram: @celure_turismo -->
+    <text x="115" y="158" 
+          fill="#00DFBA" 
+          font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" 
+          font-size="13.5" 
+          font-weight="500" 
+          letter-spacing="0.5px" 
+          opacity="0.9">@celure_turismo</text>
+  </g>
+
+  <!-- Monograma 'e' com Seta Ascendente (Traçado Único Limpo) -->
+  <g transform="translate(370, -8)">
+    <!-- Sombra interna suave da fita -->
+    <path d="M 46 95 C 46 62 70 42 100 42 C 126 42 144 60 144 88 C 144 95 138 98 120 98 L 46 98 Z" 
+          fill="url(#ribbonShadowGrad)" />
+
+    <!-- Traçado Único da Letra 'e' com a Seta Ascendente -->
+    <path d="M 38 98 L 138 98 C 138 52 105 24 68 24 C 28 24 12 58 12 98 C 12 142 38 174 88 174 C 132 174 162 140 174 80 L 176 56" 
+          fill="none" 
+          stroke="url(#celureTealGradient)" 
+          stroke-width="22" 
+          stroke-linecap="round" 
+          stroke-linejoin="round" />
+
+    <!-- Ponta da Seta Ascendente -->
+    <path d="M 176 42 L 160 66 L 176 58 L 192 66 Z" 
+          fill="url(#celureTealGradient)" />
+  </g>
+</svg>
