@@ -28,3 +28,8 @@ test('sem rolagem horizontal no celular', async ({ page }, info) => {
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
   expect(overflow).toBeLessThanOrEqual(0);
 });
+
+test('efeito de vidro fosco (backdrop-filter) sobrevive ao build', async ({ page }) => {
+  await page.goto('/');
+  expect(await page.locator('#navbar').evaluate((el) => getComputedStyle(el).backdropFilter)).toBe('blur(14px)');
+});

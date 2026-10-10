@@ -31,22 +31,22 @@ body {
 /* Efeito Glassmorphism */
 .glass-nav {
   background: rgba(250, 245, 238, 0.88);
-  backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
   border-bottom: 1px solid rgba(13, 148, 136, 0.12);
 }
 
 .glass-card {
   background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.9);
 }
 
 .glass-card-dark {
   background: rgba(28, 37, 65, 0.75);
-  backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
@@ -304,8 +304,8 @@ input[type="range"] {
 
 .luxury-portal-card {
   background: rgba(15, 23, 42, 0.82);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border: 1px solid rgba(20, 184, 166, 0.25);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 30px rgba(13, 148, 136, 0.15);
 }

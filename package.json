@@ -13,7 +13,8 @@
     "test": "vitest run",
     "visual:baseline": "cross-env TARGET=original playwright test visual --update-snapshots",
     "visual": "playwright test visual",
-    "e2e": "playwright test --grep-invert visual"
+    "e2e": "playwright test --grep-invert visual",
+    "visual:live": "cross-env TARGET=live playwright test visual"
   },
   "dependencies": {
     "astro": "^7.3.8",
