@@ -10,7 +10,7 @@ export default defineConfig({
   snapshotPathTemplate: 'tests/e2e/__baseline__/{projectName}/{arg}{ext}',
   expect: { toHaveScreenshot: { maxDiffPixelRatio: 0.01, animations: 'disabled', caret: 'hide' } },
   use: {
-    baseURL: live ? 'https://celure-viagens.vercel.app' : original ? 'http://localhost:4400' : 'http://localhost:4321',
+    baseURL: live ? 'https://celure-viagens.vercel.app' : original ? 'http://localhost:4400' : 'http://localhost:4329',
     launchOptions: { args: ['--autoplay-policy=no-user-gesture-required'] },
   },
   projects: [
@@ -21,5 +21,7 @@ export default defineConfig({
     ? undefined
     : original
     ? { command: 'npx http-server referencia-original -p 4400 -s -c-1', port: 4400, reuseExistingServer: true }
-    : { command: 'npm run build && npm run preview -- --port 4321', port: 4321, reuseExistingServer: true, timeout: 180_000 },
+    // porta exclusiva e sem reaproveitar servidor: garante que o teste roda sobre o build recém-gerado,
+    // nunca sobre um `astro dev` ou preview antigo esquecido aberto
+    : { command: 'npm run build && npm run preview -- --port 4329', port: 4329, reuseExistingServer: false, timeout: 180_000 },
 });
