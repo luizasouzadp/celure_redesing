@@ -1,0 +1,143 @@
+---
+import Icon from './Icon.astro';
+---
+<!-- Hero Section: full-bleed photo with layered text boxes on desktop, stacked on mobile/tablet -->
+<section class="relative overflow-hidden">
+
+  <!-- Full-bleed photo -->
+  <div class="relative w-full h-[420px] sm:h-[480px] lg:h-[720px]">
+    <img src="/assets/images/hero-photo.jpg" alt="Celure Viagens - Antelope Canyon, EUA" class="absolute inset-0 w-full h-full object-cover" style="object-position: center 32%;">
+
+    <!-- Gradientes para legibilidade (mais forte à esquerda e embaixo, onde ficam os textos) -->
+    <div class="absolute inset-0 bg-gradient-to-r from-slate-900/60 via-slate-900/10 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-slate-900/55 via-transparent to-transparent"></div>
+
+    <!-- Camadas de texto sobre a foto (somente desktop, posicionadas fora da área do casal na imagem) -->
+    <div class="absolute inset-0 hidden lg:block">
+      <div class="relative max-w-7xl mx-auto w-full h-full">
+
+        <!-- Eyebrow + Headline + Subtexto + CTAs -->
+        <div class="absolute top-14 left-8 max-w-lg space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/90 backdrop-blur border border-white/60 text-teal-900 text-xs sm:text-sm font-medium tracking-wide shadow-sm">
+            <Icon name="compass" class="w-4 h-4 text-teal-700" />
+            <span>De viajantes para viajantes</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl font-bold text-white leading-[1.1] tracking-tight">
+            Viaje com mais conforto e <span class="text-teal-300">use as milhas a seu favor</span>.
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-100/90 font-normal leading-relaxed">
+            Roteiros sob medida e passagens inteligentes, criados por quem já pisou em cada destino que indica. Sem pacotes de prateleira.
+          </p>
+
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
+            <a href="#cotacao" class="px-8 py-4 rounded-xl text-base font-semibold bg-teal-700 hover:bg-teal-800 text-white shadow-lg shadow-slate-900/40 flex items-center justify-center gap-3 transition-all hover:scale-[1.02]">
+              <Icon name="message-circle" class="w-5 h-5" />
+              <span>Planejar Minha Viagem</span>
+            </a>
+            <a href="#cotacao" class="px-7 py-4 rounded-xl text-base font-semibold bg-white/95 hover:bg-white text-slate-800 shadow-sm flex items-center justify-center gap-2 transition-all">
+              <Icon name="percent" class="w-5 h-5 text-teal-700" />
+              <span>Quero Economizar com Milhas</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Métricas de confiança, canto inferior esquerdo -->
+        <div class="absolute left-8 bottom-10 flex gap-6 bg-slate-900/45 backdrop-blur-md rounded-2xl px-6 py-4 border border-white/10">
+          <div>
+            <div class="text-2xl font-bold text-white">+30</div>
+            <div class="text-xs text-slate-200/80 font-medium max-w-[120px]">Países explorados pelo fundador</div>
+          </div>
+          <div class="w-px bg-white/20"></div>
+          <div>
+            <div class="text-2xl font-bold text-teal-300">100%</div>
+            <div class="text-xs text-slate-200/80 font-medium max-w-[120px]">Roteiros sob medida & humanos</div>
+          </div>
+          <div class="w-px bg-white/20"></div>
+          <div>
+            <div class="text-2xl font-bold text-white">Até 60%</div>
+            <div class="text-xs text-slate-200/80 font-medium max-w-[120px]">Economia em passagens</div>
+          </div>
+        </div>
+
+        <!-- Depoimento, canto inferior direito -->
+        <div class="absolute right-8 bottom-10 max-w-xs">
+          <div class="glass-card rounded-2xl p-4 border border-white/30 shadow-xl">
+            <div class="flex items-center gap-3">
+              <div class="w-9 h-9 rounded-full overflow-hidden bg-teal-700 flex items-center justify-center text-white font-bold text-sm shrink-0">L</div>
+              <div>
+                <p class="text-sm font-semibold text-slate-900">Lucas Müller · @mullermilhas</p>
+                <p class="text-xs text-slate-500">Antelope Canyon, EUA</p>
+              </div>
+              <span class="ml-auto px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold flex items-center gap-1 shrink-0">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Verificado
+              </span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Conteúdo empilhado abaixo da foto (mobile e tablet) -->
+  <div class="lg:hidden bg-[#FAF5EE] px-4 sm:px-6 pt-10 pb-14">
+    <div class="max-w-2xl mx-auto space-y-7">
+
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/80 border border-teal-200 text-teal-900 text-xs sm:text-sm font-medium tracking-wide">
+        <Icon name="compass" class="w-4 h-4 text-teal-700" />
+        <span>De viajantes para viajantes</span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl font-bold text-slate-900 leading-[1.1] tracking-tight">
+        Viaje com mais conforto e <span class="text-teal-700">use as milhas a seu favor</span>.
+      </h1>
+
+      <p class="text-base sm:text-lg text-slate-500 font-normal leading-relaxed">
+        Roteiros sob medida e passagens inteligentes, criados por quem já pisou em cada destino que indica. Sem pacotes de prateleira.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-1">
+        <a href="#cotacao" class="px-8 py-4 rounded-xl text-base font-semibold bg-teal-700 hover:bg-teal-800 text-white shadow-lg shadow-teal-700/25 flex items-center justify-center gap-3 transition-all hover:scale-[1.02]">
+          <Icon name="message-circle" class="w-5 h-5" />
+          <span>Planejar Minha Viagem</span>
+        </a>
+        <a href="#cotacao" class="px-7 py-4 rounded-xl text-base font-semibold bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 shadow-sm flex items-center justify-center gap-2 transition-all hover:border-teal-400">
+          <Icon name="percent" class="w-5 h-5 text-teal-700" />
+          <span>Quero Economizar com Milhas</span>
+        </a>
+      </div>
+
+      <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80">
+        <div>
+          <div class="text-2xl sm:text-3xl font-bold text-slate-900">+30</div>
+          <div class="text-xs sm:text-sm text-slate-500 font-medium">Países explorados pelo fundador</div>
+        </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-bold text-teal-700">100%</div>
+          <div class="text-xs sm:text-sm text-slate-500 font-medium">Roteiros sob medida & humanos</div>
+        </div>
+        <div>
+          <div class="text-2xl sm:text-3xl font-bold text-slate-900">Até 60%</div>
+          <div class="text-xs sm:text-sm text-slate-500 font-medium">Economia em passagens e upgrades</div>
+        </div>
+      </div>
+
+      <div class="glass-card rounded-2xl p-4 border border-slate-200">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full overflow-hidden bg-teal-700 flex items-center justify-center text-white font-bold text-sm shrink-0">L</div>
+          <div>
+            <p class="text-sm font-semibold text-slate-900">Lucas Müller · @mullermilhas</p>
+            <p class="text-xs text-slate-500">Antelope Canyon, EUA — visitado pessoalmente</p>
+          </div>
+          <span class="ml-auto px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded-full text-xs font-semibold flex items-center gap-1 shrink-0">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Verificado
+          </span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
