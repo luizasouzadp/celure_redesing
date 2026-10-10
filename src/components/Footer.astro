@@ -1,0 +1,54 @@
+---
+import { celure } from '../config/celure';
+import Icon from './Icon.astro';
+---
+<!-- Footer -->
+<footer class="bg-slate-950 text-slate-400 text-xs py-14 border-t border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-10 pb-10 border-b border-slate-800/80">
+      
+      <div class="md:col-span-5 space-y-4">
+        <div class="flex items-center">
+          <img src="/assets/images/celure-logo.png" alt="Celure Viagens e Turismo" class="h-12 sm:h-14 w-auto object-contain">
+        </div>
+        <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
+          "Somos um estilo de viagem moderno, suave e autêntico." Construída de viajantes para viajantes, com curadoria humana e estratégia de milhas.
+        </p>
+        <div class="pt-1 text-slate-400">
+          <p>CNPJ: <strong class="text-slate-300">{celure.cnpj}</strong></p>
+          <p>Atuação Remota para todo o Brasil e Exterior</p>
+        </div>
+      </div>
+
+      <div class="md:col-span-3 space-y-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Navegação Rápida</h4>
+        <ul class="space-y-2">
+          <li><a href="#sobre" class="hover:text-teal-400 transition-colors">Sobre a Celure</a></li>
+          <li><a href="#depoimentos" class="hover:text-teal-400 transition-colors">Depoimentos de Clientes</a></li>
+          <li><a href="#servicos" class="hover:text-teal-400 transition-colors">Serviços & Consultoria</a></li>
+        </ul>
+      </div>
+
+      <div class="md:col-span-4 space-y-3">
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-200">Atendimento & Redes</h4>
+        <p class="text-slate-400">Entre em contato direto com a nossa equipe:</p>
+        <div class="space-y-2 pt-1">
+          <a href={`https://instagram.com/${celure.instagram}`} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 text-teal-400 hover:text-teal-300 font-semibold">
+            <i data-lucide="instagram" class="w-4 h-4"></i> @{celure.instagram}
+          </a>
+          <a href="#cotacao" class="flex items-center gap-2 text-teal-400 hover:text-teal-300 font-semibold">
+            <Icon name="message-circle" class="w-4 h-4" /> WhatsApp Business Oficial
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+      <p>© 2026 Celure Viagens e Turismo. Todos os direitos reservados.</p>
+      <p class="text-[11px]">Desenvolvido com foco em alta conversão e experiência de usuário.</p>
+    </div>
+
+  </div>
+</footer>
