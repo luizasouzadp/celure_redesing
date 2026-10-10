@@ -10,14 +10,20 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "vitest run"
+    "test": "vitest run",
+    "visual:baseline": "cross-env TARGET=original playwright test visual --update-snapshots",
+    "visual": "playwright test visual",
+    "e2e": "playwright test --grep-invert visual"
   },
   "dependencies": {
     "astro": "^7.3.8",
     "lucide-static": "^1.54.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "autoprefixer": "^10.6.1",
+    "cross-env": "^10.1.0",
+    "http-server": "^14.1.1",
     "postcss": "^8.5.29",
     "tailwindcss": "^3.4.19",
     "vitest": "^5.0.3"
