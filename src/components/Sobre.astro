@@ -1,0 +1,811 @@
+---
+import Icon from './Icon.astro';
+---
+<!-- Section: Sobre Nós / Propósito & Diferenciais -->
+<section id="sobre" class="py-20 bg-white border-y border-slate-200/60 relative">
+
+  <!-- Textura de fundo: rotas de voo -->
+  <svg class="absolute inset-0 w-full h-full opacity-[0.14] pointer-events-none" viewBox="0 0 1200 500" preserveAspectRatio="xMidYMid slice" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M -50 380 Q 250 180 520 300 T 1000 230 T 1300 130" stroke="#0D9488" stroke-width="2.5" stroke-dasharray="7 9"/>
+    <path d="M -50 90 Q 320 240 600 70 T 1250 190" stroke="#0D9488" stroke-width="2.5" stroke-dasharray="7 9"/>
+    <circle cx="520" cy="300" r="5" fill="#0D9488"/>
+    <circle cx="1000" cy="230" r="5" fill="#0D9488"/>
+    <circle cx="600" cy="70" r="5" fill="#0D9488"/>
+  </svg>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+    
+    <div class="text-center max-w-3xl mx-auto space-y-4">
+      <span class="text-xs uppercase font-bold tracking-widest text-teal-700 bg-teal-50 px-3 py-1 rounded-full border border-teal-200/60">
+        Identidade e Conceito
+      </span>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        Muito mais do que uma agência.<br class="hidden sm:inline"> Um estilo de viagem moderno e humano.
+      </h2>
+      <p class="text-base sm:text-lg text-slate-600 leading-relaxed">
+        A Celure nasceu da percepção de que viajar bem não precisa ser um mistério inacessível e nem uma rotina burocrática de pacotes engessados. Criamos o seu roteiro com quem tem bagagem real.
+      </p>
+    </div>
+
+    <!-- 3 Pilares Celure — faixa única estilo cartão de embarque -->
+    <div class="relative bg-[#FAF5EE] rounded-3xl border-2 border-slate-200 shadow-xl shadow-slate-900/10 mt-14">
+
+      <!-- Faixa de cor no topo, como o carimbo de uma passagem -->
+      <div class="h-2 rounded-t-3xl bg-gradient-to-r from-teal-700 via-teal-500 to-orange-500"></div>
+
+      <!-- Recortes/notches da perfuração (somente desktop) -->
+      <div class="hidden md:block absolute top-2 left-1/3 w-7 h-7 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-slate-300 z-10"></div>
+      <div class="hidden md:block absolute bottom-0 left-1/3 w-7 h-7 bg-white rounded-full -translate-x-1/2 translate-y-1/2 border-2 border-slate-300 z-10"></div>
+      <div class="hidden md:block absolute top-2 left-2/3 w-7 h-7 bg-white rounded-full -translate-x-1/2 -translate-y-1/2 border-2 border-slate-300 z-10"></div>
+      <div class="hidden md:block absolute bottom-0 left-2/3 w-7 h-7 bg-white rounded-full -translate-x-1/2 translate-y-1/2 border-2 border-slate-300 z-10"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3">
+
+        <!-- Pilar 1 -->
+        <div class="p-8 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-slate-400 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center shadow-md shadow-teal-700/20">
+              <Icon name="award" class="w-6 h-6" />
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Autenticidade Comprovada</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              O fundador e a equipe vivem as experiências antes de recomendá-las. Conhecemos os melhores cantos, os segredos de cada destino e os detalhes práticos que nenhum catálogo comercial mostra.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/70 text-xs font-semibold text-teal-800 flex items-center gap-1.5">
+            <Icon name="check-circle" class="w-4 h-4 text-teal-600" />
+            <span>Experiência vivida na pele</span>
+          </div>
+        </div>
+
+        <!-- Pilar 2 -->
+        <div class="p-8 border-b-2 md:border-b-0 md:border-r-2 border-dashed border-slate-400 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center shadow-md shadow-teal-700/20">
+              <Icon name="trending-up" class="w-6 h-6" />
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Inteligência Financeira & Milhas</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Aproveitamos cartões de crédito e programas de pontos que a maioria das pessoas tem e não sabe usar. Isso viabiliza viagens em classe executiva e hotéis de alto padrão por um custo muito menor.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/70 text-xs font-semibold text-teal-800 flex items-center gap-1.5">
+            <Icon name="check-circle" class="w-4 h-4 text-teal-600" />
+            <span>Mais conforto pagando menos</span>
+          </div>
+        </div>
+
+        <!-- Pilar 3 -->
+        <div class="p-8 flex flex-col justify-between">
+          <div class="space-y-4">
+            <div class="w-12 h-12 rounded-xl bg-teal-700 text-white flex items-center justify-center shadow-md shadow-teal-700/20">
+              <Icon name="clock" class="w-6 h-6" />
+            </div>
+            <h3 class="text-xl font-bold text-slate-900">Seu Bem Mais Precioso: O Tempo</h3>
+            <p class="text-slate-600 text-sm leading-relaxed">
+              Pesquisar passagens, rotas, hotéis e passeios consome dezenas de horas. Nós cuidamos de toda a inteligência e logística para você apenas arrumar as malas e aproveitar sua experiência.
+            </p>
+          </div>
+          <div class="mt-6 pt-4 border-t border-slate-200/70 text-xs font-semibold text-teal-800 flex items-center gap-1.5">
+            <Icon name="check-circle" class="w-4 h-4 text-teal-600" />
+            <span>Zero estresse no planejamento</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Mapa-Múndi Animado com Rotas e Avião Celure -->
+    <div class="mt-16 bg-gradient-to-br from-slate-900 via-slate-950 to-teal-950 rounded-3xl p-6 sm:p-10 text-white shadow-2xl border border-teal-900/50 relative overflow-hidden">
+      
+      <!-- Header do Mapa -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-white/10 relative z-10">
+        <div class="space-y-1">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-teal-500/20 border border-teal-500/30 text-teal-300 text-xs font-semibold">
+            <Icon name="stamp" class="w-3.5 h-3.5" />
+            <span>Passaporte do Lucas</span>
+          </div>
+          <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight">
+            Alguns dos lugares por onde o fundador já passou
+          </h3>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 text-xs font-semibold">
+            <Icon name="mouse-pointer-click" class="w-3.5 h-3.5" />
+            Clique nos pontos pra ver as fotos
+          </span>
+        </div>
+      </div>
+
+      <!-- Texto do Fundador + Mapa, lado a lado -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 mt-6">
+
+        <!-- Texto do Fundador -->
+        <div class="lg:col-span-4 space-y-6">
+          <div class="space-y-4 text-slate-300 text-sm leading-relaxed">
+            <p>
+              A Celure nasceu da vivência prática de <strong class="text-white">Lucas (@mullermilhas)</strong>. Apaixonado por viagens e desbravador de mais de 30 países, Lucas construiu conhecimento próprio ao longo de anos no mercado de milhas e estratégias de fidelidade.
+            </p>
+            <p>
+              Ao perceber que milhares de pessoas deixam benefícios valiosos expirarem em seus cartões de crédito e pagam preços inflacionados por passagens comuns, fundou a Celure com um lema inegociável: <strong class="text-teal-300">credibilidade através de experiências reais</strong> e um atendimento 100% humano.
+            </p>
+          </div>
+        </div>
+
+        <!-- Mapa -->
+        <div class="lg:col-span-8">
+
+      <!-- Rolagem lateral no mobile para o mapa não ficar minúsculo -->
+      <div class="overflow-x-auto lg:overflow-visible -mx-4 px-4 lg:mx-0 lg:px-0">
+      <div class="min-w-[640px] lg:min-w-0">
+
+      <!-- SVG Map Container -->
+      <div class="relative my-4 overflow-hidden rounded-2xl bg-slate-950/60 border border-white/5 p-2 sm:p-4">
+        <svg viewBox="0 0 1000 500" class="w-full h-auto max-h-[460px] select-none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Glow Filter -->
+            <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+              <feGaussianBlur stdDeviation="3" result="blur" />
+              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+            </filter>
+
+            <!-- Recorte circular para as miniaturas de foto -->
+            <clipPath id="circleClip32">
+              <circle cx="16" cy="16" r="16"/>
+            </clipPath>
+
+            <!-- Bandeiras desenhadas em SVG (emoji de bandeira não renderiza em todo sistema) -->
+            <symbol id="flag-br" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#009739"/>
+              <polygon points="11,2 20,7.5 11,13 2,7.5" fill="#FEDD00"/>
+              <circle cx="11" cy="7.5" r="3.2" fill="#012169"/>
+            </symbol>
+            <symbol id="flag-us" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#B22234"/>
+              <g fill="#FFFFFF">
+                <rect y="1.15" width="22" height="1.15"/>
+                <rect y="3.46" width="22" height="1.15"/>
+                <rect y="5.77" width="22" height="1.15"/>
+                <rect y="8.08" width="22" height="1.15"/>
+                <rect y="10.38" width="22" height="1.15"/>
+                <rect y="12.69" width="22" height="1.15"/>
+              </g>
+              <rect width="9" height="8.08" fill="#3C3B6E"/>
+            </symbol>
+            <symbol id="flag-ca" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#FFFFFF"/>
+              <rect width="5.5" height="15" fill="#FF0000"/>
+              <rect x="16.5" width="5.5" height="15" fill="#FF0000"/>
+              <path d="M11 3.5 L11.8 5.8 L14 5 L12.8 7 L14.5 8.3 L12 8.3 L12.3 11 L11 9.5 L9.7 11 L10 8.3 L7.5 8.3 L9.2 7 L8 5 L10.2 5.8 Z" fill="#FF0000"/>
+            </symbol>
+            <symbol id="flag-de" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#000000"/>
+              <rect y="5" width="22" height="5" fill="#DD0000"/>
+              <rect y="10" width="22" height="5" fill="#FFCE00"/>
+            </symbol>
+            <symbol id="flag-gr" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#0D5EAF"/>
+              <g fill="#FFFFFF">
+                <rect y="1.15" width="22" height="1.15"/>
+                <rect y="3.46" width="22" height="1.15"/>
+                <rect y="5.77" width="22" height="1.15"/>
+                <rect y="8.08" width="22" height="1.15"/>
+                <rect y="10.38" width="22" height="1.15"/>
+                <rect y="12.69" width="22" height="1.15"/>
+              </g>
+              <rect width="8.5" height="8.08" fill="#0D5EAF"/>
+              <g fill="#FFFFFF">
+                <rect x="3.4" width="1.7" height="8.08"/>
+                <rect y="3.2" width="8.5" height="1.7"/>
+              </g>
+            </symbol>
+            <symbol id="flag-tr" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#E30A17"/>
+              <circle cx="9" cy="7.5" r="4" fill="#FFFFFF"/>
+              <circle cx="10.2" cy="7.5" r="3.3" fill="#E30A17"/>
+              <polygon points="14,7.5 15.2,8.3 14.8,6.9 15.9,6.1 14.5,6.1 14,4.7 13.5,6.1 12.1,6.1 13.2,6.9 12.8,8.3" fill="#FFFFFF"/>
+            </symbol>
+            <symbol id="flag-qa" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#8D1B3D"/>
+              <rect width="6" height="15" fill="#FFFFFF"/>
+              <polygon points="6,0 8,1.5 6,3 8,4.5 6,6 8,7.5 6,9 8,10.5 6,12 8,13.5 6,15" fill="#FFFFFF"/>
+            </symbol>
+            <symbol id="flag-cn" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#DE2910"/>
+              <polygon points="5,2 5.9,4.6 8.6,4.6 6.4,6.1 7.2,8.7 5,7.1 2.8,8.7 3.6,6.1 1.4,4.6 4.1,4.6" fill="#FFDE00"/>
+              <circle cx="9" cy="1.5" r="0.6" fill="#FFDE00"/>
+              <circle cx="10.5" cy="3.2" r="0.6" fill="#FFDE00"/>
+              <circle cx="10.5" cy="5.6" r="0.6" fill="#FFDE00"/>
+              <circle cx="9" cy="7.2" r="0.6" fill="#FFDE00"/>
+            </symbol>
+
+            <symbol id="flag-cl" viewBox="0 0 22 15">
+              <rect width="22" height="7.5" fill="#FFFFFF"/>
+              <rect y="7.5" width="22" height="7.5" fill="#D52B1E"/>
+              <rect width="7.5" height="7.5" fill="#0039A6"/>
+              <polygon points="3.75,2 4.4,3.9 6.4,3.9 4.8,5.1 5.4,7 3.75,5.8 2.1,7 2.7,5.1 1.1,3.9 3.1,3.9" fill="#FFFFFF"/>
+            </symbol>
+            <symbol id="flag-uy" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#FFFFFF"/>
+              <g fill="#0038A8">
+                <rect y="0" width="22" height="1.67"/>
+                <rect y="3.33" width="22" height="1.67"/>
+                <rect y="6.67" width="22" height="1.67"/>
+                <rect y="10" width="22" height="1.67"/>
+                <rect y="13.33" width="22" height="1.67"/>
+              </g>
+              <rect width="8" height="8.3" fill="#FFFFFF"/>
+              <circle cx="4" cy="4.15" r="2" fill="#FCD116"/>
+            </symbol>
+            <symbol id="flag-ar" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#74ACDF"/>
+              <rect y="5" width="22" height="5" fill="#FFFFFF"/>
+              <rect y="10" width="22" height="5" fill="#74ACDF"/>
+              <circle cx="11" cy="7.5" r="1.8" fill="#F6B40E"/>
+            </symbol>
+            <symbol id="flag-pt" viewBox="0 0 22 15">
+              <rect width="8.8" height="15" fill="#046A38"/>
+              <rect x="8.8" width="13.2" height="15" fill="#DA291C"/>
+              <circle cx="8.8" cy="7.5" r="3" fill="#FFCC00" stroke="#FFFFFF" stroke-width="0.4"/>
+            </symbol>
+            <symbol id="flag-at" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#ED2939"/>
+              <rect y="5" width="22" height="5" fill="#FFFFFF"/>
+              <rect y="10" width="22" height="5" fill="#ED2939"/>
+            </symbol>
+            <symbol id="flag-sk" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#FFFFFF"/>
+              <rect y="5" width="22" height="5" fill="#0B4EA2"/>
+              <rect y="10" width="22" height="5" fill="#EE1C25"/>
+            </symbol>
+            <symbol id="flag-hu" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#CE2939"/>
+              <rect y="5" width="22" height="5" fill="#FFFFFF"/>
+              <rect y="10" width="22" height="5" fill="#477050"/>
+            </symbol>
+            <symbol id="flag-cz" viewBox="0 0 22 15">
+              <rect width="22" height="7.5" fill="#FFFFFF"/>
+              <rect y="7.5" width="22" height="7.5" fill="#D7141A"/>
+              <polygon points="0,0 0,15 9,7.5" fill="#11457E"/>
+            </symbol>
+            <symbol id="flag-fr" viewBox="0 0 22 15">
+              <rect width="7.33" height="15" fill="#0055A4"/>
+              <rect x="7.33" width="7.33" height="15" fill="#FFFFFF"/>
+              <rect x="14.67" width="7.33" height="15" fill="#EF4135"/>
+            </symbol>
+            <symbol id="flag-es" viewBox="0 0 22 15">
+              <rect width="22" height="3.75" fill="#AA151B"/>
+              <rect y="3.75" width="22" height="7.5" fill="#F1BF00"/>
+              <rect y="11.25" width="22" height="3.75" fill="#AA151B"/>
+            </symbol>
+            <symbol id="flag-it" viewBox="0 0 22 15">
+              <rect width="7.33" height="15" fill="#009246"/>
+              <rect x="7.33" width="7.33" height="15" fill="#FFFFFF"/>
+              <rect x="14.67" width="7.33" height="15" fill="#CE2B37"/>
+            </symbol>
+            <symbol id="flag-pa" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#FFFFFF"/>
+              <rect x="11" width="11" height="7.5" fill="#DA121A"/>
+              <rect y="7.5" width="11" height="7.5" fill="#072357"/>
+              <polygon points="5.5,2 6.1,3.7 7.9,3.7 6.5,4.7 7,6.4 5.5,5.4 4,6.4 4.5,4.7 3.1,3.7 4.9,3.7" fill="#072357"/>
+              <polygon points="16.5,9.5 17.1,11.2 18.9,11.2 17.5,12.2 18,13.9 16.5,12.9 15,13.9 15.5,12.2 14.1,11.2 15.9,11.2" fill="#DA121A"/>
+            </symbol>
+            <symbol id="flag-do" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#FFFFFF"/>
+              <rect width="9.5" height="6" fill="#002D62"/>
+              <rect x="12.5" width="9.5" height="6" fill="#CE1126"/>
+              <rect y="9" width="9.5" height="6" fill="#CE1126"/>
+              <rect x="12.5" y="9" width="9.5" height="6" fill="#002D62"/>
+            </symbol>
+            <symbol id="flag-al" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#E41E20"/>
+              <path d="M11 5 L12 6 L13.5 5.5 L12.5 7 L14 8 L12 7.7 L12.5 9.5 L11 8.2 L9.5 9.5 L10 7.7 L8 8 L9.5 7 L8.5 5.5 L10 6 Z" fill="#000000"/>
+            </symbol>
+            <symbol id="flag-me" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#C40308"/>
+              <rect x="0.9" y="0.9" width="20.2" height="13.2" fill="none" stroke="#D4AF37" stroke-width="1.2"/>
+              <circle cx="11" cy="7.5" r="2.4" fill="#D4AF37"/>
+            </symbol>
+            <symbol id="flag-hr" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#FF0000"/>
+              <rect y="5" width="22" height="5" fill="#FFFFFF"/>
+              <rect y="10" width="22" height="5" fill="#171796"/>
+              <rect x="9" y="5.5" width="4" height="4" fill="#FF0000"/>
+              <rect x="9" y="5.5" width="1" height="1" fill="#FFFFFF"/>
+              <rect x="11" y="5.5" width="1" height="1" fill="#FFFFFF"/>
+              <rect x="10" y="6.5" width="1" height="1" fill="#FFFFFF"/>
+              <rect x="12" y="6.5" width="1" height="1" fill="#FFFFFF"/>
+              <rect x="9" y="7.5" width="1" height="1" fill="#FFFFFF"/>
+              <rect x="11" y="7.5" width="1" height="1" fill="#FFFFFF"/>
+            </symbol>
+            <symbol id="flag-kr" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#FFFFFF"/>
+              <circle cx="11" cy="7.5" r="3.2" fill="#C60C30"/>
+              <path d="M11 4.3 A1.6 1.6 0 0 1 11 7.5 A1.6 1.6 0 0 0 11 10.7 A3.2 3.2 0 0 0 11 4.3 Z" fill="#003478"/>
+            </symbol>
+            <symbol id="flag-jp" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#FFFFFF"/>
+              <circle cx="11" cy="7.5" r="3.4" fill="#BC002D"/>
+            </symbol>
+            <symbol id="flag-nl" viewBox="0 0 22 15">
+              <rect width="22" height="5" fill="#AE1C28"/>
+              <rect y="5" width="22" height="5" fill="#FFFFFF"/>
+              <rect y="10" width="22" height="5" fill="#21468B"/>
+            </symbol>
+            <symbol id="flag-co" viewBox="0 0 22 15">
+              <rect width="22" height="7.5" fill="#FCD116"/>
+              <rect y="7.5" width="22" height="3.75" fill="#003893"/>
+              <rect y="11.25" width="22" height="3.75" fill="#CE1126"/>
+            </symbol>
+            <symbol id="flag-aw" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#4189DD"/>
+              <rect y="10.5" width="22" height="0.8" fill="#F7D116"/>
+              <rect y="12.3" width="22" height="0.8" fill="#F7D116"/>
+              <polygon points="5,2 5.7,3.6 7.4,3.6 6,4.6 6.5,6.2 5,5.2 3.5,6.2 4,4.6 2.6,3.6 4.3,3.6" fill="#FF0000" stroke="#FFFFFF" stroke-width="0.3"/>
+            </symbol>
+            <symbol id="flag-bq" viewBox="0 0 22 15">
+              <rect width="22" height="15" fill="#0033A0"/>
+              <rect y="11" width="22" height="1.3" fill="#FCD116"/>
+              <rect y="12.3" width="22" height="1.3" fill="#FFFFFF"/>
+              <polygon points="5,3 5.6,4.5 7.2,4.3 6.1,5.5 6.9,6.9 5,6.1 3.1,6.9 3.9,5.5 2.8,4.3 4.4,4.5" fill="#FFFFFF"/>
+              <circle cx="5" cy="5" r="0.7" fill="#CE1126"/>
+            </symbol>
+            <symbol id="flag-mx" viewBox="0 0 22 15">
+              <rect width="7.33" height="15" fill="#006341"/>
+              <rect x="7.33" width="7.33" height="15" fill="#FFFFFF"/>
+              <rect x="14.67" width="7.33" height="15" fill="#CE1126"/>
+              <circle cx="11" cy="7.5" r="1.6" fill="#8B5A2B"/>
+            </symbol>
+
+            <!-- Master Looping Flight Path -->
+            <path id="masterFlightRoute" d="M 320 360 Q 250 260 240 190 Q 230 155 270 125 Q 400 90 520 155 Q 540 185 555 205 Q 585 208 610 215 Q 640 240 660 275 Q 730 200 770 145 Q 550 420 320 360" fill="none"/>
+          </defs>
+
+          <!-- World Map Simplified Continents Background -->
+          <g fill="#1E293B" opacity="0.55">
+            <!-- North America -->
+            <path d="M 120 110 Q 180 80 280 110 Q 320 160 260 230 Q 200 240 140 190 Z" />
+            <!-- South America -->
+            <path d="M 280 270 Q 360 290 350 420 Q 300 470 280 380 Z" />
+            <!-- Europe -->
+            <path d="M 440 120 Q 560 100 580 190 Q 480 230 440 170 Z" />
+            <!-- Africa -->
+            <path d="M 450 230 Q 580 240 550 400 Q 470 410 440 300 Z" />
+            <!-- Asia -->
+            <path d="M 580 110 Q 860 90 880 240 Q 750 320 620 230 Z" />
+            <!-- Australia / Oceania -->
+            <path d="M 780 350 Q 890 340 880 430 Q 800 440 780 370 Z" />
+          </g>
+
+          <!-- Latitude & Longitude Subtle Grid Lines -->
+          <g stroke="#334155" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.3">
+            <line x1="50" y1="125" x2="950" y2="125" />
+            <line x1="50" y1="250" x2="950" y2="250" />
+            <line x1="50" y1="375" x2="950" y2="375" />
+            <line x1="250" y1="50" x2="250" y2="450" />
+            <line x1="500" y1="50" x2="500" y2="450" />
+            <line x1="750" y1="50" x2="750" y2="450" />
+          </g>
+
+          <!-- Animated Flight Trajectory Lines -->
+          <!-- Brasil -> EUA -->
+          <path d="M 320 360 Q 250 260 240 190" fill="none" stroke="#14B8A6" stroke-width="2" class="flight-path-animated" opacity="0.8" filter="url(#glow)"/>
+          <!-- EUA -> Canadá -->
+          <path d="M 240 190 Q 230 155 270 125" fill="none" stroke="#14B8A6" stroke-width="2" class="flight-path-animated" opacity="0.8" filter="url(#glow)"/>
+          <!-- Canadá -> Alemanha -->
+          <path d="M 270 125 Q 400 90 520 155" fill="none" stroke="#14B8A6" stroke-width="2" class="flight-path-animated" opacity="0.8" filter="url(#glow)"/>
+          <!-- Alemanha -> Grécia -->
+          <path d="M 520 155 Q 540 185 555 205" fill="none" stroke="#14B8A6" stroke-width="2" class="flight-path-animated" opacity="0.8" filter="url(#glow)"/>
+          <!-- Grécia -> Turquia -->
+          <path d="M 555 205 Q 585 208 610 215" fill="none" stroke="#2DD4BF" stroke-width="2" class="flight-path-animated" opacity="0.9"/>
+          <!-- Turquia -> Catar -->
+          <path d="M 610 215 Q 640 240 660 275" fill="none" stroke="#14B8A6" stroke-width="2" class="flight-path-animated" opacity="0.8" filter="url(#glow)"/>
+          <!-- Catar -> China -->
+          <path d="M 660 275 Q 730 200 770 145" fill="none" stroke="#14B8A6" stroke-width="2.5" class="flight-path-animated" opacity="0.9" filter="url(#glow)"/>
+          <!-- China -> Brasil (Retorno Global) -->
+          <path d="M 770 145 Q 550 420 320 360" fill="none" stroke="#0D9488" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.4"/>
+
+          <!-- Destination Pins & Labels -->
+          
+          <!-- 1. BRASIL (Hub Origem) -->
+          <g transform="translate(320, 360)">
+            <circle r="12" fill="#0D9488" class="map-pin-pulse" />
+            <circle r="5" fill="#2DD4BF" />
+            <g transform="translate(14, -2)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-br" width="22" height="15"/>
+            </g>
+          </g>
+
+          <!-- 2. ESTADOS UNIDOS — Antelope Canyon -->
+          <g transform="translate(240, 190)">
+            <circle r="10" fill="#F97316" class="map-pin-pulse" />
+            <circle r="4" fill="#FB923C" />
+            <g transform="translate(-40, -2)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-us" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(20, -16)" role="button" aria-label="Ver foto: Antelope Canyon, EUA" data-dest-photo="eua">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/eua-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- 3. CANADÁ — Toronto -->
+          <g transform="translate(270, 125)">
+            <circle r="8" fill="#14B8A6" class="map-pin-pulse" />
+            <circle r="3.5" fill="#5EEAD4" />
+            <g transform="translate(12, -2)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-ca" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(-52, -16)" role="button" aria-label="Ver foto: Toronto, Canadá" data-dest-photo="canada">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/canada-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- 4. ALEMANHA — Munique -->
+          <g transform="translate(520, 155)">
+            <circle r="8" fill="#14B8A6" class="map-pin-pulse" />
+            <circle r="3.5" fill="#5EEAD4" />
+            <g transform="translate(12, -2)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-de" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(-52, -16)" role="button" aria-label="Ver foto: Munique, Alemanha" data-dest-photo="alemanha">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/alemanha-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- 5. GRÉCIA — Santorini -->
+          <g transform="translate(555, 205)">
+            <circle r="8" fill="#F59E0B" class="map-pin-pulse" />
+            <circle r="3.5" fill="#FCD34D" />
+            <g transform="translate(12, 12)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-gr" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(-16, -52)" role="button" aria-label="Ver foto: Santorini, Grécia" data-dest-photo="grecia">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/grecia-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- 6. TURQUIA — Istambul -->
+          <g transform="translate(610, 215)">
+            <circle r="8" fill="#14B8A6" class="map-pin-pulse" />
+            <circle r="3.5" fill="#5EEAD4" />
+            <g transform="translate(-19, 20)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-tr" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(20, -16)" role="button" aria-label="Ver foto: Istambul, Turquia" data-dest-photo="turquia">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/turquia-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- 7. CATAR — Deserto de Doha -->
+          <g transform="translate(660, 275)">
+            <circle r="8" fill="#F59E0B" class="map-pin-pulse" />
+            <circle r="3.5" fill="#FCD34D" />
+            <g transform="translate(12, -16)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-qa" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(-16, 30)" role="button" aria-label="Ver foto: Catar" data-dest-photo="catar">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/catar-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- 8. CHINA — Muralha da China -->
+          <g transform="translate(770, 145)">
+            <circle r="12" fill="#E11D48" class="map-pin-pulse" />
+            <circle r="5" fill="#FDA4AF" />
+            <g transform="translate(16, -2)">
+              <rect x="-2" y="-2" width="26" height="19" rx="3" fill="#0F172A" stroke="#FFFFFF" stroke-width="1"/>
+              <use href="#flag-cn" width="22" height="15"/>
+            </g>
+            <g class="dest-photo-thumb" transform="translate(-52, -16)" role="button" aria-label="Ver foto: Muralha da China" data-dest-photo="china">
+              <circle cx="16" cy="16" r="18" fill="#0F172A" stroke="#2DD4BF" stroke-width="2"/>
+              <image href="/assets/images/destinos/china-thumb.jpg" x="0" y="0" width="32" height="32" clip-path="url(#circleClip32)" preserveAspectRatio="xMidYMid slice"/>
+            </g>
+          </g>
+
+          <!-- ANIMATED AIRPLANE FLYING ALONG THE MASTER ROUTE -->
+          <g id="animatedAirplane" filter="url(#glow)">
+            <g transform="rotate(90)">
+              <!-- Airplane Shape -->
+              <path d="M 0 -12 L 5 0 L 14 3 L 14 6 L 5 4 L 4 10 L 8 13 L 8 15 L 0 13 L -8 15 L -8 13 L -4 10 L -5 4 L -14 6 L -14 3 L -5 0 Z" fill="#2DD4BF" stroke="#FFFFFF" stroke-width="1"/>
+              <!-- Trail / Glow -->
+              <circle r="3" fill="#F97316" opacity="0.8"/>
+            </g>
+
+            <!-- AnimateMotion Loop -->
+            <animateMotion dur="15s" repeatCount="indefinite" rotate="auto">
+              <mpath href="#masterFlightRoute"/>
+            </animateMotion>
+          </g>
+        </svg>
+      </div>
+
+      </div>
+      </div>
+
+        </div>
+
+      </div>
+
+      <!-- Faixa de Países Já Visitados pelo Fundador (rolagem automática) -->
+      <div class="mt-6 pt-4 border-t border-white/10">
+        <div class="flex items-center gap-2 mb-3">
+          <Icon name="stamp" class="w-4 h-4 text-teal-400" />
+          <span class="text-xs font-bold text-white uppercase tracking-wide font-mono">+30 países já visitados pelo fundador</span>
+        </div>
+        <div class="relative overflow-hidden">
+          <div class="absolute inset-y-0 left-0 w-10 bg-gradient-to-r from-slate-950 to-transparent z-10 pointer-events-none"></div>
+          <div class="absolute inset-y-0 right-0 w-10 bg-gradient-to-l from-slate-950 to-transparent z-10 pointer-events-none"></div>
+          <div class="flex gap-3 country-marquee">
+            <div class="flex gap-3 shrink-0">
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-br"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Brasil</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-cl"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Chile</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-uy"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Uruguai</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-ar"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Argentina</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-pt"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Portugal</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-de"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Alemanha</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-at"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Áustria</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-sk"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Eslováquia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-hu"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Hungria</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-cz"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">República Tcheca</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-fr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">França</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-es"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Espanha</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-it"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Itália</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-pa"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Panamá</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-do"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">República Dominicana</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-gr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Grécia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-al"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Albânia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-me"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Montenegro</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-hr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Croácia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-tr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Turquia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-qa"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Catar</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-us"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Estados Unidos</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-ca"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Canadá</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-kr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Coreia do Sul</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-jp"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Japão</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-cn"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">China</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-nl"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Holanda</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-co"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Colômbia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-aw"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Aruba</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-bq"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Bonaire</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-mx"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">México</span>
+              </div>
+            </div>
+            <div class="flex gap-3 shrink-0" aria-hidden="true">
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-br"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Brasil</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-cl"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Chile</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-uy"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Uruguai</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-ar"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Argentina</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-pt"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Portugal</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-de"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Alemanha</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-at"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Áustria</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-sk"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Eslováquia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-hu"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Hungria</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-cz"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">República Tcheca</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-fr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">França</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-es"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Espanha</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-it"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Itália</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-pa"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Panamá</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-do"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">República Dominicana</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-gr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Grécia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-al"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Albânia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-me"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Montenegro</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-hr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Croácia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-tr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Turquia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-qa"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Catar</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-us"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Estados Unidos</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-ca"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Canadá</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-kr"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Coreia do Sul</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-jp"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Japão</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-cn"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">China</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-nl"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Holanda</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-co"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Colômbia</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-aw"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Aruba</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-bq"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">Bonaire</span>
+              </div>
+              <div class="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/5 border border-white/10 shrink-0 whitespace-nowrap">
+                <svg width="20" height="14" viewBox="0 0 22 15" class="shrink-0 rounded-sm"><use href="#flag-mx"></use></svg>
+                <span class="text-xs font-semibold text-slate-200">México</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>

@@ -1,0 +1,77 @@
+---
+import Icon from './Icon.astro';
+---
+<!-- Lightbox de Fotos dos Destinos (Mapa-Múndi) -->
+<div id="dest-photo-lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/90 backdrop-blur-sm p-4" role="dialog" aria-modal="true" aria-label="Foto do destino">
+  <button id="dest-photo-close" class="absolute top-5 right-5 sm:top-8 sm:right-8 text-white/80 hover:text-white p-2 rounded-full hover:bg-white/10 transition-colors" aria-label="Fechar">
+    <Icon name="x" class="w-7 h-7" />
+  </button>
+
+  <button id="dest-photo-prev" class="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full hover:bg-white/10 transition-colors" aria-label="Destino anterior">
+    <Icon name="chevron-left" class="w-7 h-7 sm:w-9 sm:h-9" />
+  </button>
+  <button id="dest-photo-next" class="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 text-white/80 hover:text-white p-2 sm:p-3 rounded-full hover:bg-white/10 transition-colors" aria-label="Próximo destino">
+    <Icon name="chevron-right" class="w-7 h-7 sm:w-9 sm:h-9" />
+  </button>
+
+  <div class="max-w-3xl w-full flex flex-col items-center gap-4">
+    <img id="dest-photo-img" src="" alt="" class="w-full max-h-[75vh] object-contain rounded-2xl shadow-2xl border border-white/10">
+    <div class="text-center">
+      <p id="dest-photo-title" class="text-white font-bold text-lg"></p>
+      <p id="dest-photo-caption" class="text-slate-300 text-sm mt-1"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { destinos } from '../data/destinos';
+  import { wrapIndex } from '../lib/carousel';
+
+  const box = document.getElementById('dest-photo-lightbox')!;
+  const img = document.getElementById('dest-photo-img') as HTMLImageElement;
+  const title = document.getElementById('dest-photo-title')!;
+  const caption = document.getElementById('dest-photo-caption')!;
+  let current = 0;
+
+  const isOpen = () => !box.classList.contains('hidden');
+
+  function render() {
+    const d = destinos[current];
+    img.src = d.src;
+    img.alt = `${d.title} — ${d.caption}`;
+    title.textContent = d.title;
+    caption.textContent = d.caption;
+  }
+
+  function open(key: string) {
+    const i = destinos.findIndex((d) => d.key === key);
+    if (i === -1) return;
+    current = i;
+    render();
+    box.classList.remove('hidden');
+    box.classList.add('flex');
+  }
+
+  function close() {
+    box.classList.add('hidden');
+    box.classList.remove('flex');
+  }
+
+  function nav(dir: number) {
+    current = wrapIndex(current + dir, destinos.length);
+    render();
+  }
+
+  document.querySelectorAll<SVGElement>('[data-dest-photo]').forEach((el) =>
+    el.addEventListener('click', () => open(el.dataset.destPhoto!)));
+  box.addEventListener('click', (e) => { if (e.target === box) close(); });
+  document.getElementById('dest-photo-close')?.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+  document.getElementById('dest-photo-prev')?.addEventListener('click', (e) => { e.stopPropagation(); nav(-1); });
+  document.getElementById('dest-photo-next')?.addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
+  document.addEventListener('keydown', (e) => {
+    if (!isOpen()) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') nav(-1);
+    if (e.key === 'ArrowRight') nav(1);
+  });
+</script>
