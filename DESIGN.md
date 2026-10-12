@@ -24,7 +24,7 @@ Vitrine viva com todas as peças: rode o site e abra `/design-system`.
 `Button` (primary / secondary, sempre com a estrela) · `TextLink` · `CloseButton` · `Icon` · `Eyebrow` ·
 `SectionHead` (rótulo 22,5% + título 75%) · `HairlineGrid` (grade de fios) · `StatCard` · `TripCard` ·
 `JourneyStep` · `StepItem` · `PersonCard` · `IncludedList` · `InputGroup` · `Header` · `Footer` ·
-`Breadcrumbs` · `LegalNav` · `CookieBanner` · `Lightbox` · `WorldMap` (mapa-múndi com pontinhos e fotos) · `AmbientVideo` (vídeo sem som que só toca quando aparece na tela) · `SwipeHint` (aviso "deslize" para fileiras e mapas que rolam para o lado no celular).
+`Breadcrumbs` · `LegalNav` · `CookieBanner` · `Lightbox` · `Modal` (janela de leitura por cima da página, aberta por `data-modal-open`) · `WorldMap` (mapa-múndi com pontinhos e fotos) · `AmbientVideo` (vídeo sem som que só toca quando aparece na tela) · `SwipeHint` (aviso "deslize" para fileiras e mapas que rolam para o lado no celular).
 
 ## Regras que não se quebram
 
@@ -52,7 +52,7 @@ Feitas para o site real e documentadas aqui para não se perderem:
 - Ícones `arrow-left`, `arrow-right` e `play`, e o logo do WhatsApp (`whatsapp`).
 - Ícones das salas VIP: `lounge-drinks`, `lounge-shower`, `lounge-rest`, `lounge-wifi`, `lounge-quiet` (mesmo traço de 1,5px).
 - Exceção de marca de terceiros: o botão flutuante do WhatsApp usa o verde oficial (`--whatsapp-green`) para ser reconhecido na hora; no hover vira laranja como os demais botões.
-- `Eyebrow`, `Lightbox`, prop `template` no `HairlineGrid`, `description` no `TripCard`, `text` no `IncludedList`.
+- `Eyebrow`, `Lightbox`, `Modal`, prop `template` no `HairlineGrid`, `description` no `TripCard`, `text` no `IncludedList`.
 - Uma leve sombra escura na base das fotos do `PersonCard`, só para garantir a leitura do nome.
 - `WorldMap`: mapa-múndi desenhado na montagem do site a partir dos contornos abertos do Natural Earth (pacote `world-atlas`, domínio público), com tokens próprios `--map-land`, `--map-border`, `--map-visited` e `--map-dot-glow`. Os pontinhos laranja têm um brilho suave — a única "luz" permitida no sistema, pedida para o mapa. Os países ficam em `src/data/viagens.ts`.
 

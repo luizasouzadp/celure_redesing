@@ -1,0 +1,86 @@
+---
+// Janela de leitura por cima da página (mesma URL): fundo escuro, painel com fio de 1px e conteúdo que rola.
+// Abre com qualquer elemento [data-modal-open="<id>"]; fecha no X, no fundo ou com Esc.
+// Enquanto aberta, o foco fica preso dentro dela e a página de trás não rola. No celular ocupa a tela toda.
+import CloseButton from './CloseButton.astro';
+interface Props { id: string; labelledby: string; class?: string }
+const { id, labelledby, class: className } = Astro.props;
+---
+<div id={id} class:list={['ds-modal', className]} role="dialog" aria-modal="true" aria-labelledby={labelledby} hidden>
+  <div class="ds-modal__panel">
+    <CloseButton class="ds-modal__close" data-modal-close />
+    <div class="ds-modal__body"><slot /></div>
+  </div>
+</div>
+
+<style>
+  .ds-modal {
+    position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+    padding: 2rem var(--container-pad); background: rgba(9, 27, 32, .85);
+    -webkit-backdrop-filter: blur(var(--blur-header-mobile)); backdrop-filter: blur(var(--blur-header-mobile));
+    animation: ds-modal-in var(--dur-panel) var(--ease);
+  }
+  .ds-modal[hidden] { display: none; }
+  .ds-modal__panel {
+    position: relative; display: flex; width: min(72rem, 100%); max-height: calc(100svh - 4rem);
+    background: var(--ink-900); border: 1px solid var(--line-hairline);
+  }
+  .ds-modal__body { flex: 1; min-width: 0; overflow-y: auto; overscroll-behavior: contain; }
+  /* o X fica sempre no canto, por cima do conteúdo que rola; área de toque de 40px */
+  .ds-modal__panel :global(.ds-modal__close) {
+    position: absolute; top: 1rem; right: 1rem; z-index: 1; width: 2.5rem; height: 2.5rem; place-items: center;
+    background: var(--ink-900);
+  }
+  :global(html.ds-modal-open), :global(html.ds-modal-open body) { overflow: hidden; }
+  @keyframes ds-modal-in { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .ds-modal { animation: none; } }
+  @media (max-width: 767px) {
+    .ds-modal { padding: 0; }
+    .ds-modal__panel { width: 100%; height: 100svh; max-height: none; border: 0; }
+  }
+</style>
+
+<script>
+  const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, video[controls], [tabindex]:not([tabindex="-1"])';
+  let opener: HTMLElement | null = null;
+
+  function open(modal: HTMLElement, from: HTMLElement) {
+    opener = from;
+    modal.hidden = false;
+    document.documentElement.classList.add('ds-modal-open');
+    modal.querySelector<HTMLElement>('[data-modal-close]')?.focus();
+  }
+
+  function close(modal: HTMLElement) {
+    modal.hidden = true;
+    document.documentElement.classList.remove('ds-modal-open');
+    opener?.focus();
+    opener = null;
+  }
+
+  document.addEventListener('click', (e) => {
+    const target = e.target as HTMLElement;
+    const trigger = target.closest<HTMLElement>('[data-modal-open]');
+    if (trigger) {
+      const modal = document.getElementById(trigger.dataset.modalOpen!);
+      if (modal?.classList.contains('ds-modal')) { e.preventDefault(); open(modal, trigger); }
+      return;
+    }
+    const modal = target.closest<HTMLElement>('.ds-modal');
+    if (modal && (target === modal || target.closest('[data-modal-close]'))) close(modal);
+  });
+
+  document.addEventListener('keydown', (e) => {
+    const modal = document.querySelector<HTMLElement>('.ds-modal:not([hidden])');
+    if (!modal) return;
+    if (e.key === 'Escape') { close(modal); return; }
+    if (e.key !== 'Tab') return;
+    const items = [...modal.querySelectorAll<HTMLElement>(FOCUSABLE)].filter((el) => el.getClientRects().length > 0);
+    if (!items.length) return;
+    const first = items[0];
+    const last = items[items.length - 1];
+    const inside = modal.contains(document.activeElement);
+    if (e.shiftKey && (document.activeElement === first || !inside)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && (document.activeElement === last || !inside)) { e.preventDefault(); first.focus(); }
+  });
+</script>

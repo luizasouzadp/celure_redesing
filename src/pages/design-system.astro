@@ -20,6 +20,7 @@ import Breadcrumbs from '../components/ds/Breadcrumbs.astro';
 import LegalNav from '../components/ds/LegalNav.astro';
 import CookieBanner from '../components/ds/CookieBanner.astro';
 import WorldMap from '../components/ds/WorldMap.astro';
+import Modal from '../components/ds/Modal.astro';
 
 const cores = [
   ['--ink-900', '#091b20', 'Fundo da página'],
@@ -114,6 +115,19 @@ const icones = ['pin', 'calendar', 'users', 'location', 'earth', 'yoga', 'plus',
         <SectionHead eyebrow="Navegação lateral" size="h3" marginBottom="2rem"><Fragment slot="title">LegalNav</Fragment></SectionHead>
         <LegalNav items={[{ label: 'Coleta de dados', href: '#' }, { label: 'Uso das informações', href: '#' }, { label: 'Seus direitos', href: '#' }]} />
       </div>
+    </section>
+
+    <section class="padding-global container">
+      <SectionHead eyebrow="Janela"><Fragment slot="title">Modal <span class="color-white-40">— leitura por cima da página.</span></Fragment></SectionHead>
+      <Button variant="secondary" data-modal-open="demo-modal">Abrir Exemplo</Button>
+      <Modal id="demo-modal" labelledby="demo-modal-title">
+        <div style="padding:var(--cell-pad);display:flex;flex-direction:column;gap:1.5rem">
+          <h2 id="demo-modal-title" class="h3">Título da janela. <span class="color-white-40">Frase de apoio.</span></h2>
+          <p class="body-md color-white-60">Conteúdo de exemplo. Fecha no X, clicando fora ou com Esc.</p>
+          <TextLink href="#">Um link dentro da janela</TextLink>
+          <Button href="#">Ação Principal</Button>
+        </div>
+      </Modal>
     </section>
 
     <CookieBanner open>Exemplo do aviso fixo (CookieBanner). Só use se o site realmente usar cookies.</CookieBanner>
