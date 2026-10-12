@@ -18,7 +18,7 @@ const blocos = [
       { label: 'Silêncio & Wi-Fi' },
       { label: 'Acesso com seus cartões' },
     ],
-    nota: 'Incluso nas consultorias e viagens Celure', cta: 'Saber como acessar',
+    nota: 'Incluso nas consultorias e viagens Celure', cta: 'Saber como acessar', modal: 'salas-vip',
     video: { src: '/assets/videos/lounge.mp4', poster: '/assets/images/lounge-poster.webp', label: 'Vídeo de uma sala VIP de aeroporto', aspect: '540 / 1170' },
   },
   {
@@ -51,7 +51,7 @@ const garantias = [
         <IncludedList items={b.itens} />
         <div class="vip__rodape">
           <span class="body-sm color-white-50">{b.nota}</span>
-          <TextLink href="#cotacao">{b.cta}</TextLink>
+          <TextLink href="#cotacao" data-modal-open={'modal' in b ? b.modal : undefined}>{b.cta}</TextLink>
         </div>
       </div>
       <div class="vip__midia" data-reveal>

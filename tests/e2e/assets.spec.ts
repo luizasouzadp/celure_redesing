@@ -12,7 +12,7 @@ test('nenhum arquivo da página retorna erro (404 etc.) e os vídeos carregam', 
   expect(bad).toEqual([]);
 
   // vídeos de ambiente (Experiência VIP): existem e são vídeos de verdade
-  const srcs = await page.locator('video[data-ambient-src]').evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.ambientSrc!));
+  const srcs = await page.locator('#luxo video[data-ambient-src]').evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.ambientSrc!));
   expect(srcs).toHaveLength(2);
   for (const src of srcs) {
     const r = await request.get(src);
@@ -23,7 +23,7 @@ test('nenhum arquivo da página retorna erro (404 etc.) e os vídeos carregam', 
 
 test('vídeo do lounge só toca quando aparece na tela', async ({ page }) => {
   await page.goto('/');
-  const v = page.locator('video[data-ambient-src="/assets/videos/lounge.mp4"]');
+  const v = page.locator('#luxo video[data-ambient-src="/assets/videos/lounge.mp4"]');
   expect(await v.evaluate((el: HTMLVideoElement) => el.currentSrc)).toBe(''); // ainda não baixou
   await v.scrollIntoViewIfNeeded();
   await expect.poll(() => v.evaluate((el: HTMLVideoElement) => !el.paused)).toBe(true);
