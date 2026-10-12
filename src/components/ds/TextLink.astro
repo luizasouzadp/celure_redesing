@@ -1,0 +1,19 @@
+---
+// Link de texto sublinhado por um fio branco. Use para ações dentro de parágrafos ou células.
+import type { HTMLAttributes } from 'astro/types';
+type Props = HTMLAttributes<'a'>;
+const { class: className, ...rest } = Astro.props;
+---
+<a class:list={['ds-text-link', className]} {...rest}><slot /></a>
+
+<style>
+  .ds-text-link {
+    color: var(--white-100); font-size: var(--body-md-size); font-weight: 500; letter-spacing: var(--body-md-ls);
+    border-bottom: 1px solid var(--white-100); padding-bottom: .125rem;
+    transition: color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+  }
+  /* área de toque maior que o texto (o sublinhado continua no lugar) */
+  .ds-text-link { position: relative; }
+  .ds-text-link::after { content: ''; position: absolute; inset: -.75rem -.25rem; }
+  .ds-text-link:hover { color: var(--brand-accent); border-color: var(--brand-accent); }
+</style>

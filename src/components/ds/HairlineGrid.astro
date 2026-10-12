@@ -1,0 +1,44 @@
+---
+// A assinatura do design system: células sem caixa, separadas por fios de 1px (white-10).
+// Cada filho direto vira uma célula. As colunas se reorganizam no tablet e no celular.
+//   template: colunas personalizadas no desktop (ex.: "1fr 2fr"); edges: "y" (fios em cima e embaixo), "none" ou "all"; bleed: estica até a borda da tela
+//   saindo do .container.
+interface Props {
+  columns?: number;
+  tablet?: number;
+  mobile?: number;
+  edges?: 'y' | 'none' | 'all';
+  bleed?: boolean;
+  template?: string;
+  class?: string;
+  id?: string;
+}
+const { columns = 3, tablet = Math.min(columns, 2), mobile = 1, edges = 'y', bleed = false, template, class: className, id } = Astro.props;
+---
+<div
+  id={id}
+  class:list={['ds-hairline-grid', `ds-hairline-grid--edges-${edges}`, { 'ds-hairline-grid--bleed': bleed }, className]}
+  style={`--cols:${columns};--cols-tablet:${tablet};--cols-mobile:${mobile}${template ? `;--template:${template}` : ';--template:initial'}`}
+>
+  <div class="ds-hairline-grid__inner"><slot /></div>
+</div>
+
+<style>
+  /* Truque dos fios: toda célula tem borda à esquerda e em cima; a grade interna é deslocada
+     1px para cima/esquerda e o contêiner corta o excesso, então só sobram os fios entre células. */
+  .ds-hairline-grid { overflow: hidden; }
+  .ds-hairline-grid--edges-y { border-top: 1px solid var(--line-hairline); border-bottom: 1px solid var(--line-hairline); }
+  .ds-hairline-grid--edges-all { border: 1px solid var(--line-hairline); }
+  .ds-hairline-grid--bleed { margin-left: calc(var(--container-pad) * -1); margin-right: calc(var(--container-pad) * -1); }
+  .ds-hairline-grid__inner {
+    display: grid; grid-template-columns: var(--template, repeat(var(--cols), minmax(0, 1fr)));
+    width: calc(100% + 1px); margin: -1px 0 0 -1px;
+  }
+  .ds-hairline-grid__inner > :global(*) { min-width: 0; border-left: 1px solid var(--line-hairline); border-top: 1px solid var(--line-hairline); }
+  @media (max-width: 991px) {
+    .ds-hairline-grid__inner { grid-template-columns: repeat(var(--cols-tablet), minmax(0, 1fr)); }
+  }
+  @media (max-width: 599px) {
+    .ds-hairline-grid__inner { grid-template-columns: repeat(var(--cols-mobile), minmax(0, 1fr)); }
+  }
+</style>

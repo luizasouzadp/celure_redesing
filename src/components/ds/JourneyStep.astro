@@ -1,0 +1,18 @@
+---
+// Etapa de jornada ("ETAPA 01" + subtítulo + título), feita para a faixa com desfoque sobre foto.
+interface Props { count: string; subtitle?: string; title: string }
+const { count, subtitle, title } = Astro.props;
+---
+<div class="ds-journey-step">
+  <div class="ds-journey-step__head">
+    <span class="count ds-journey-step__count">{count}</span>
+    {subtitle && <span class="body-sm color-white-60">{subtitle}</span>}
+  </div>
+  <p class="body-lg">{title}</p>
+</div>
+
+<style>
+  .ds-journey-step { display: flex; flex-direction: column; gap: 5.5rem; padding: var(--cell-pad); height: 100%; }
+  .ds-journey-step__head { display: flex; gap: .5rem; align-items: baseline; }
+  @media (max-width: 991px) { .ds-journey-step { gap: 2.5rem; } }
+</style>

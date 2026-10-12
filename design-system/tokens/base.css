@@ -1,0 +1,26 @@
+/* Base + type utility classes (names mirror the source site) */
+html{font-size:calc(1.11111vw)}
+@media (min-width:1440px){html{font-size:16px}}
+@media (min-width:1920px){html{font-size:calc(.833333vw)}}
+@media (max-width:479px){html{font-size:calc(4.26667vw)}}
+body{margin:0;background:var(--surface-page);color:var(--text-primary);font-family:var(--font-sans);font-size:1rem;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:var(--white-100);text-decoration:none}
+a:hover{color:var(--brand-accent)}
+img{max-width:100%;display:block}
+.h1{font-size:var(--h1-size);line-height:var(--h1-lh);letter-spacing:var(--h1-ls);font-weight:600}
+.h2{font-size:var(--h2-size);line-height:var(--h2-lh);letter-spacing:var(--h2-ls);font-weight:600}
+.h3{font-size:var(--h3-size);line-height:var(--h3-lh);letter-spacing:var(--h3-ls);font-weight:600}
+.h4{font-size:var(--h4-size);line-height:var(--h4-lh);letter-spacing:var(--h4-ls);font-weight:600}
+.body-xxl{font-size:var(--body-xxl-size);line-height:var(--body-xxl-lh);letter-spacing:var(--body-xxl-ls);font-weight:600}
+.body-xl{font-size:var(--body-xl-size);line-height:var(--body-xl-lh);letter-spacing:var(--body-xl-ls);font-weight:500}
+.body-lg{font-size:var(--body-lg-size);line-height:var(--body-lg-lh);letter-spacing:var(--body-lg-ls);font-weight:500}
+.body-lg-semibold{font-size:var(--body-lg-size);line-height:100%;letter-spacing:-.5px;font-weight:600}
+.body-md{font-size:var(--body-md-size);line-height:var(--body-md-lh);letter-spacing:var(--body-md-ls);font-weight:500}
+.body-md-regular{font-size:1rem;line-height:130%;letter-spacing:-.5px;font-weight:400}
+.body-sm{font-size:var(--body-sm-size);line-height:var(--body-sm-lh);letter-spacing:var(--body-sm-ls);font-weight:400}
+.button-sm{font-size:var(--button-sm-size);line-height:var(--button-sm-lh);letter-spacing:var(--button-sm-ls);font-weight:600}
+.title-xs{font-size:var(--title-xs-size);line-height:var(--title-xs-lh);letter-spacing:var(--title-xs-ls)}
+.color-white-60{color:var(--white-60)}.color-white-50{color:var(--white-50)}.color-white-40{color:var(--white-40)}.color-brand-green{color:var(--brand-green)}.color-accent{color:var(--brand-accent)}
+.container{width:100%;padding-left:var(--container-pad);padding-right:var(--container-pad)}
+.padding-global{padding-top:var(--section-pad);padding-bottom:var(--section-pad)}

@@ -1,0 +1,40 @@
+---
+// Vídeo de ambiente (sem som, em repetição), sem cantos arredondados nem moldura — como as fotos.
+// Só baixa e toca quando aparece na tela e pausa quando sai, para não pesar a página.
+// Quem pediu ao sistema menos animação vê só a imagem de capa (poster).
+interface Props {
+  src: string;
+  poster: string;
+  label: string;
+  aspect?: string;
+  class?: string;
+}
+const { src, poster, label, aspect = '9 / 16', class: className } = Astro.props;
+---
+<video
+  class:list={['ds-ambient-video', className]}
+  data-ambient-src={src}
+  poster={poster}
+  muted loop playsinline preload="none"
+  aria-label={label}
+  style={`aspect-ratio:${aspect}`}
+></video>
+
+<style>
+  .ds-ambient-video { display: block; width: 100%; height: auto; object-fit: cover; background: var(--brand-green); }
+</style>
+
+<script>
+  const videos = document.querySelectorAll<HTMLVideoElement>('video[data-ambient-src]');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => entries.forEach(({ target, isIntersecting }) => {
+      const v = target as HTMLVideoElement;
+      if (isIntersecting) {
+        if (!v.src) v.src = v.dataset.ambientSrc!;
+        v.play().catch(() => {});
+      } else v.pause();
+    }), { rootMargin: '200px 0px' });
+    videos.forEach((v) => io.observe(v));
+  }
+</script>

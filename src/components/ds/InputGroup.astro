@@ -1,0 +1,53 @@
+---
+// Campo de formulário sem caixa: rótulo pequeno em cima e só um fio na base (fica mais claro ao focar).
+export type Option = string | { value: string; label: string };
+interface Props {
+  label: string;
+  id: string;
+  name?: string;
+  as?: 'input' | 'select' | 'textarea';
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+  options?: Option[];
+  autocomplete?: string;
+}
+const { label, id, name = id, as = 'input', type = 'text', placeholder, required, options = [], autocomplete } = Astro.props;
+const opts = options.map((o) => (typeof o === 'string' ? { value: o, label: o } : o));
+---
+<div class="ds-input-group">
+  <label for={id} class="body-sm color-white-60">{label}</label>
+  {as === 'textarea' ? (
+    <textarea id={id} name={name} placeholder={placeholder} required={required} rows="4" class="ds-input-group__field ds-input-group__field--area"></textarea>
+  ) : as === 'select' ? (
+    <div class="ds-input-group__select">
+      <select id={id} name={name} required={required} class="ds-input-group__field">
+        {opts.map((o) => <option value={o.value}>{o.label}</option>)}
+      </select>
+      <svg width="12" height="8" viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" stroke="currentColor" stroke-width="1.5" fill="none" /></svg>
+    </div>
+  ) : (
+    <input id={id} name={name} type={type} placeholder={placeholder} required={required} autocomplete={autocomplete} class="ds-input-group__field" />
+  )}
+</div>
+
+<style>
+  .ds-input-group { display: flex; flex-direction: column; gap: .25rem; width: 100%; padding-top: .9rem; }
+  .ds-input-group__field {
+    width: 100%; margin: 0; padding: .5rem 0 .9rem; border: 0; border-bottom: 1px solid var(--line-hairline); border-radius: 0;
+    background: transparent; color: var(--white-100); outline: none;
+    font-family: var(--font-sans); font-size: var(--input-size); font-weight: 500; letter-spacing: var(--input-ls); line-height: 120%;
+    transition: border-color var(--dur-fast) var(--ease);
+  }
+  .ds-input-group__field::placeholder { color: var(--white-20); }
+  .ds-input-group__field:hover { border-bottom-color: var(--white-20); }
+  .ds-input-group__field:focus { border-bottom-color: var(--white-40); }
+  .ds-input-group__field:focus-visible { outline: none; border-bottom-color: var(--brand-accent); }
+  .ds-input-group__field--area { resize: vertical; min-height: 7rem; }
+  .ds-input-group__select { position: relative; color: var(--white-60); }
+  .ds-input-group__select select { appearance: none; padding-right: 2rem; cursor: pointer; }
+  .ds-input-group__select select option { background: var(--ink-900); color: var(--white-100); }
+  /* no mínimo 16px: abaixo disso o iPhone dá zoom sozinho ao tocar no campo */
+  @media (max-width: 479px) { .ds-input-group__field { font-size: max(16px, 1.0625rem); letter-spacing: -.5px; } }
+  .ds-input-group__select svg { position: absolute; right: .25rem; top: 50%; transform: translateY(-80%); pointer-events: none; }
+</style>

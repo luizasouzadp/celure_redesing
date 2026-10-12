@@ -1,0 +1,85 @@
+---
+// Foto ampliada do "Passaporte do Lucas", com navegação em ciclo (setas na tela e no teclado).
+import Lightbox from '../ds/Lightbox.astro';
+import Icon from '../ds/Icon.astro';
+---
+<Lightbox id="dest-photo-lightbox" label="Foto do destino" closeId="dest-photo-close">
+  <button id="dest-photo-prev" type="button" class="dest-nav dest-nav--prev" aria-label="Destino anterior"><Icon name="arrow-left" size="1.25rem" /></button>
+  <figure class="dest-box">
+    <img id="dest-photo-img" alt="" />
+    <figcaption>
+      <span id="dest-photo-title" class="h4"></span>
+      <span id="dest-photo-caption" class="body-md color-white-60"></span>
+    </figcaption>
+  </figure>
+  <button id="dest-photo-next" type="button" class="dest-nav dest-nav--next" aria-label="Próximo destino"><Icon name="arrow-right" size="1.25rem" /></button>
+</Lightbox>
+
+<style>
+  .dest-box { display: flex; flex-direction: column; gap: 1.25rem; max-width: 48rem; }
+  .dest-box img { max-width: 100%; max-height: 72vh; object-fit: contain; }
+  .dest-box figcaption { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+  .dest-nav {
+    position: absolute; top: 50%; transform: translateY(-50%); display: grid; place-items: center;
+    width: 3rem; height: 3rem; padding: 0; border: 0; border-radius: var(--radius-pill); cursor: pointer;
+    background: var(--brand-green); color: var(--white-100); transition: background-color var(--dur-fast) var(--ease);
+  }
+  .dest-nav:hover { background: var(--brand-accent); }
+  .dest-nav--prev { left: var(--container-pad); }
+  .dest-nav--next { right: var(--container-pad); }
+  @media (max-width: 767px) {
+    .dest-nav { top: auto; bottom: 1.5rem; transform: none; }
+  }
+</style>
+
+<script>
+  import { destinos } from '../../data/destinos';
+  import { wrapIndex } from '../../lib/carousel';
+
+  const box = document.getElementById('dest-photo-lightbox')!;
+  const img = document.getElementById('dest-photo-img') as HTMLImageElement;
+  const title = document.getElementById('dest-photo-title')!;
+  const caption = document.getElementById('dest-photo-caption')!;
+  let current = 0;
+  let opener: HTMLElement | null = null;
+
+  function render() {
+    const d = destinos[current];
+    img.src = d.src;
+    img.alt = `${d.caption}, ${d.title}`;
+    title.textContent = d.title;
+    caption.textContent = d.caption;
+  }
+
+  function open(el: HTMLElement) {
+    const i = destinos.findIndex((d) => d.key === el.dataset.destPhoto);
+    if (i === -1) return;
+    opener = el;
+    current = i;
+    render();
+    box.hidden = false;
+    document.getElementById('dest-photo-close')?.focus();
+  }
+
+  function close() {
+    box.hidden = true;
+    opener?.focus();
+  }
+
+  function nav(dir: number) {
+    current = wrapIndex(current + dir, destinos.length);
+    render();
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-dest-photo]').forEach((el) => el.addEventListener('click', () => open(el)));
+  box.addEventListener('click', (e) => { if (e.target === box) close(); });
+  document.getElementById('dest-photo-close')?.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+  document.getElementById('dest-photo-prev')?.addEventListener('click', (e) => { e.stopPropagation(); nav(-1); });
+  document.getElementById('dest-photo-next')?.addEventListener('click', (e) => { e.stopPropagation(); nav(1); });
+  document.addEventListener('keydown', (e) => {
+    if (box.hidden) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') nav(-1);
+    if (e.key === 'ArrowRight') nav(1);
+  });
+</script>

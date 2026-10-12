@@ -1,0 +1,32 @@
+:root{
+/* Base palette — copied verbatim from the source :root */
+--white-100:#ffffff;
+--white-60:#ffffff99;
+--white-50:#ffffff80;
+--white-40:#ffffff66;
+--white-20:#ffffff33;
+--white-10:#ffffff1a;
+--brand-accent:#fb9826;
+--button-clicked:#fa8805;
+--brand-green:#0d2e37;
+--icon-grey-40:#3d585f;
+--ink-900:#091b20;           /* page background (body, cookie, menus, success panel) */
+--overlay-dark-20:rgba(0,0,0,.2); /* mobile hero darkening */
+/* Celure brand mark (logo artwork only — never used as UI accent) */
+--celure-teal:#14b8a6;
+
+/* Semantic aliases */
+--surface-page:var(--ink-900);
+--surface-raised:var(--brand-green);
+--surface-inverse:var(--white-100);
+--text-primary:var(--white-100);
+--text-secondary:var(--white-60);
+--text-tertiary:var(--white-50);
+--text-muted:var(--white-40);
+--text-on-light:var(--brand-green);
+--accent:var(--brand-accent);
+--accent-pressed:var(--button-clicked);
+--line-hairline:var(--white-10);   /* grid dividers inside content */
+--line-chrome:var(--white-20);     /* header / footer dividers */
+--icon-muted:var(--icon-grey-40);
+}

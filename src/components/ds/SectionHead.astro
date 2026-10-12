@@ -1,0 +1,35 @@
+---
+// Cabeçalho de seção: rótulo (eyebrow) numa coluna estreita de 22.5% e título grande em 75%.
+// Padrão de título em duas frases: a segunda vai esmaecida, com <span class="color-white-40">.
+// O título entra pelo slot "title"; conteúdo extra (parágrafo, botões) vai no slot padrão.
+import Eyebrow from './Eyebrow.astro';
+interface Props {
+  eyebrow?: string;
+  size?: 'h2' | 'h3';
+  as?: 'h1' | 'h2' | 'h3';
+  marginBottom?: string;
+  id?: string;
+}
+const { eyebrow, size = 'h2', as: Tag = 'h2', marginBottom = '4rem', id } = Astro.props;
+---
+<div class="ds-section-head" style={`--mb:${marginBottom}`}>
+  <div class="ds-section-head__eyebrow">
+    {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+  </div>
+  <div class="ds-section-head__main">
+    <Tag class={size} id={id}><slot name="title" /></Tag>
+    {Astro.slots.has('default') && <div class="ds-section-head__extra"><slot /></div>}
+  </div>
+</div>
+
+<style>
+  .ds-section-head { display: flex; margin: 0 -1rem var(--mb); }
+  .ds-section-head__eyebrow { width: 22.5%; padding: .5rem 1rem 0; flex-shrink: 0; }
+  .ds-section-head__main { width: 75%; padding: 0 1rem; display: flex; flex-direction: column; gap: 2.5rem; }
+  .ds-section-head__extra { display: flex; flex-direction: column; gap: 1.5rem; }
+  @media (max-width: 991px) {
+    .ds-section-head { flex-direction: column; gap: 1.5rem; margin: 0 0 calc(var(--mb) * .75); }
+    .ds-section-head__eyebrow, .ds-section-head__main { width: 100%; padding: 0; }
+    .ds-section-head__main { gap: 1.5rem; }
+  }
+</style>

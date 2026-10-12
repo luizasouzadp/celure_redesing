@@ -1,0 +1,3 @@
+/* Inter (latin subset, variable 300–700) — self-hosted copy of the Google Fonts file the source loads. */
+@font-face{font-family:'Inter';font-style:normal;font-weight:300 700;font-display:swap;src:url('/fonts/Inter-Variable.woff2') format('woff2');}
+:root{--font-sans:'Inter',sans-serif;}

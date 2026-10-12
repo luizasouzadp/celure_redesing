@@ -1,0 +1,38 @@
+---
+// Botão flutuante: só o ícone do WhatsApp, que abre a conversa direto (nova aba) com uma mensagem pronta.
+// Aparece depois que a abertura termina e some quando o formulário de cotação está na tela.
+import Icon from '../ds/Icon.astro';
+import { ctaMessage, getWhatsAppUrl } from '../../lib/whatsapp';
+
+const href = getWhatsAppUrl(ctaMessage('geral'));
+---
+<a id="whatsapp-float" class="wa-float" href={href} target="_blank" rel="noopener noreferrer" aria-label="Falar com a Celure no WhatsApp">
+  <Icon name="whatsapp" size="1.75rem" />
+</a>
+
+<style>
+  .wa-float {
+    position: fixed; right: var(--container-pad); bottom: 1.5rem; z-index: 80;
+    display: grid; place-items: center; width: 3.75rem; height: 3.75rem; border-radius: 50%;
+    background: var(--whatsapp-green); color: var(--white-100);
+    opacity: 0; transform: translateY(var(--panel-offset)); pointer-events: none;
+    transition: opacity var(--dur-panel) var(--ease), transform var(--dur-panel) var(--ease), background-color var(--dur-fast) var(--ease);
+  }
+  .wa-float.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+  .wa-float:hover { background: var(--brand-accent); }
+  .wa-float:active { background: var(--button-clicked); }
+  @media (max-width: 479px) { .wa-float { width: 3.5rem; height: 3.5rem; bottom: 1rem; } }
+</style>
+
+<script>
+  // Mostra depois que a abertura (com o vídeo) termina; some quando o formulário de cotação está na tela
+  const float = document.getElementById('whatsapp-float');
+  const quote = document.getElementById('cotacao');
+  let quoteVisible = false;
+  const hero = document.getElementById('hero');
+  const pastHero = () => (hero ? hero.getBoundingClientRect().bottom < window.innerHeight * 0.5 : window.scrollY > window.innerHeight * 0.6);
+  const update = () => float?.classList.toggle('is-visible', pastHero() && !quoteVisible);
+  if (quote) new IntersectionObserver(([e]) => { quoteVisible = e.isIntersecting; update(); }).observe(quote);
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+</script>

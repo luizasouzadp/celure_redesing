@@ -1,0 +1,37 @@
+---
+// Conjunto de ícones próprio do Celure Design System (src/assets/icons), embutido no HTML.
+// Não use bibliotecas de ícones (Lucide, Heroicons…): se faltar um desenho, crie um no mesmo traço.
+// "celure-mark" é a marca "e" da Celure (PNG), usada ao lado dos rótulos de seção.
+interface Props {
+  name: string;
+  size?: string;
+  width?: string;
+  height?: string;
+  class?: string;
+  label?: string;
+}
+const { name, size, width, height, class: className = '', label } = Astro.props;
+
+const files = import.meta.glob<string>('../../assets/icons/*.svg', { query: '?raw', import: 'default', eager: true });
+const w = width ?? size;
+const h = height ?? size;
+const style = [w && `width:${w}`, h && `height:${h}`].filter(Boolean).join(';');
+const a11y = label ? `role="img" aria-label="${label}"` : 'aria-hidden="true"';
+
+let svg = '';
+if (name !== 'celure-mark') {
+  const raw = files[`../../assets/icons/${name}.svg`];
+  if (!raw) throw new Error(`Ícone não encontrado no design system: ${name}`);
+  svg = raw.replace(/<svg([^>]*)\swidth="[^"]*"\sheight="[^"]*"/, '<svg$1').replace(
+    '<svg',
+    `<svg data-icon="${name}" class="ds-icon ${className}" ${a11y}${style ? ` style="${style}"` : ''}`,
+  );
+}
+---
+{name === 'celure-mark'
+  ? <img src="/assets/brand/celure-mark.png" alt={label ?? ''} class:list={['ds-icon', className]} style={style} width="300" height="302" />
+  : <Fragment set:html={svg} />}
+
+<style>
+  :global(.ds-icon) { display: block; flex-shrink: 0; object-fit: contain; }
+</style>

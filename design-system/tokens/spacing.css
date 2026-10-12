@@ -1,0 +1,16 @@
+:root{
+/* Spacing (rem; html is fluid: 1.11111vw, 16px at ≥1440, 4.26667vw on mobile) */
+--space-1:.25rem;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-4-5:1.125rem;--space-5:1.25rem;--space-6:1.5rem;--space-7:1.75rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-14:3.5rem;--space-16:4rem;--space-20:5rem;--space-25:6.25rem;
+--container-pad:2.5rem;--container-pad-mobile:1.25rem;
+--section-pad:5rem;--section-pad-mobile:4rem;
+--cell-pad:2.5rem;             /* padding inside every hairline-grid cell */
+--header-height:4.5rem;
+/* Shape */
+--radius-none:0;--radius-pill:5rem;
+/* Lines */
+--hairline:1px;
+/* Elevation: none. The system is flat; depth comes from photography + blur. */
+--blur-strip:10px;--blur-header-mobile:12px;
+/* Motion */
+--ease:ease;/* @kind other */--dur-fast:.2s;/* @kind other */--dur-panel:.4s;/* @kind other */--panel-offset:1rem;
+}

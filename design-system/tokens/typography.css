@@ -1,0 +1,19 @@
+:root{
+/* Display */
+--h1-size:11.875rem;--h1-lh:100%;--h1-ls:-10px;--h1-weight:600;
+--h2-size:3.75rem;--h2-lh:110%;--h2-ls:-3.6px;--h2-weight:600;
+--h3-size:2.8125rem;--h3-lh:100%;--h3-ls:-3px;--h3-weight:600;
+--h4-size:1.75rem;--h4-lh:120%;--h4-ls:-2px;--h4-weight:600;
+/* Body */
+--body-xxl-size:1.75rem;--body-xxl-lh:130%;--body-xxl-ls:-2px;--body-xxl-weight:600;
+--body-xl-size:1.375rem;--body-xl-lh:120%;--body-xl-ls:-1px;--body-xl-weight:500;
+--body-lg-size:1.125rem;--body-lg-lh:130%;--body-lg-ls:-.5px;--body-lg-weight:500;
+--body-md-size:1rem;--body-md-lh:130%;--body-md-ls:-.5px;--body-md-weight:500;
+--body-sm-size:.875rem;--body-sm-lh:130%;--body-sm-ls:-.6px;--body-sm-weight:400;
+/* UI */
+--button-sm-size:.875rem;--button-sm-lh:90%;--button-sm-ls:-.5px;--button-sm-weight:600;
+--title-xs-size:.75rem;--title-xs-lh:.9375rem;--title-xs-ls:-.5px;
+--count-size:.625rem;--count-lh:.6875rem;--count-weight:600;
+--logo-title-size:1.5rem;--logo-title-ls:-2px;
+--input-size:1.375rem;--input-ls:-1px;
+}

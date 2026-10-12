@@ -1,0 +1,30 @@
+---
+// Aviso fixo no rodapé da tela (ex.: cookies). Só use se o site realmente usar cookies/rastreamento.
+// Abre com data-open="true" e fecha removendo o atributo (fade + desliza 1rem, .4s).
+import Button from './Button.astro';
+import CloseButton from './CloseButton.astro';
+interface Props { id?: string; acceptLabel?: string; declineLabel?: string; open?: boolean }
+const { id = 'cookie-banner', acceptLabel = 'Aceitar', declineLabel = 'Recusar', open = false } = Astro.props;
+---
+<div id={id} class="ds-cookie" data-open={open ? 'true' : undefined} role="region" aria-label="Aviso">
+  <p class="body-md-regular color-white-60"><slot /></p>
+  <div class="ds-cookie__actions">
+    <Button variant="secondary" icon={false} data-cookie="decline">{declineLabel}</Button>
+    <Button data-cookie="accept">{acceptLabel}</Button>
+    <CloseButton data-cookie="close" />
+  </div>
+</div>
+
+<style>
+  .ds-cookie {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 90;
+    display: flex; justify-content: space-between; align-items: center; gap: 2rem;
+    padding: var(--cell-pad); border: 1px solid var(--line-hairline); background: var(--ink-900);
+    opacity: 0; transform: translateY(var(--panel-offset)); pointer-events: none;
+    transition: opacity var(--dur-panel) var(--ease), transform var(--dur-panel) var(--ease);
+  }
+  .ds-cookie[data-open='true'] { opacity: 1; transform: none; pointer-events: auto; }
+  .ds-cookie p { max-width: 49rem; }
+  .ds-cookie__actions { display: flex; align-items: center; gap: 1rem; }
+  @media (max-width: 767px) { .ds-cookie { flex-direction: column; align-items: flex-start; } }
+</style>

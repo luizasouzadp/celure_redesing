@@ -1,0 +1,52 @@
+---
+// Botão em pílula do design system. primary = fundo branco; secondary = fundo verde-escuro.
+// Ao passar o mouse vira laranja (accent) e, ao clicar, laranja mais forte. A estrela de 4 pontas
+// ("sparkle") acompanha todo botão; desligue com icon={false} só em ações secundárias (ex.: Recusar).
+import type { HTMLAttributes } from 'astro/types';
+
+type Props = HTMLAttributes<'a'> & HTMLAttributes<'button'> & {
+  variant?: 'primary' | 'secondary';
+  href?: string;
+  type?: 'button' | 'submit' | 'reset';
+  icon?: boolean;
+  fullWidth?: boolean;
+};
+const { variant = 'primary', href, type = 'button', icon = true, fullWidth = false, class: className, ...rest } = Astro.props;
+const Tag = href ? 'a' : 'button';
+---
+<Tag
+  href={href}
+  type={href ? undefined : type}
+  class:list={['ds-button', `ds-button--${variant}`, { 'ds-button--full': fullWidth }, className]}
+  {...rest}
+>
+  <span class="ds-button__label"><slot /></span>
+  {icon && (
+    <svg class="ds-button__sparkle" width="8" height="8" viewBox="0 0 8 8" aria-hidden="true">
+      <path d="M8 0C8 0 7.32 2.42 7.32 4C7.32 5.58 8 8 8 8C8 8 5.58 7.32 4 7.32C2.42 7.32 0 8 0 8C0 8 .68 5.58 .68 4C.68 2.42 0 0 0 0C0 0 2.42 .68 4 .68C5.58 .68 8 0 8 0Z" fill="currentColor" />
+    </svg>
+  )}
+</Tag>
+
+<style>
+  .ds-button {
+    display: inline-flex; align-items: center; justify-content: flex-start; gap: 1rem;
+    padding: 1.25rem 2rem; border: 0; border-radius: var(--radius-pill);
+    font-family: var(--font-sans); cursor: pointer; text-decoration: none;
+    transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease);
+  }
+  .ds-button--primary { background: var(--white-100); color: var(--brand-green); }
+  .ds-button--secondary { background: var(--brand-green); color: var(--white-100); padding: .875rem 1.5rem; min-width: 8.5rem; justify-content: center; }
+  .ds-button:hover { background: var(--brand-accent); color: var(--brand-green); }
+  .ds-button--secondary:hover { color: var(--white-100); }
+  .ds-button:active { background: var(--button-clicked); }
+  .ds-button--full { display: flex; width: 100%; justify-content: space-between; }
+  .ds-button__label {
+    font-size: var(--button-sm-size); font-weight: 600; line-height: var(--button-sm-lh);
+    letter-spacing: var(--button-sm-ls); white-space: nowrap;
+  }
+  .ds-button__sparkle { flex-shrink: 0; }
+  @media (max-width: 479px) {
+    .ds-button__label { white-space: normal; }
+  }
+</style>

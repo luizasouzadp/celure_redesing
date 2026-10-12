@@ -1,0 +1,19 @@
+---
+// Aviso de "deslize para o lado" para fileiras e mapas que rolam na horizontal (só aparece no
+// tablet/celular, onde não há barra de rolagem visível). A seta se move de leve, chamando o gesto.
+import Icon from './Icon.astro';
+interface Props { label?: string; class?: string }
+const { label = 'Deslize para ver mais', class: className } = Astro.props;
+---
+<p class:list={['ds-swipe-hint title-xs', className]} aria-hidden="true">
+  <span>{label}</span>
+  <span class="ds-swipe-hint__arrow"><Icon name="arrow-right" size="1rem" /></span>
+</p>
+
+<style>
+  .ds-swipe-hint { display: none; align-items: center; gap: .5rem; color: var(--white-60); }
+  .ds-swipe-hint__arrow { display: inline-flex; color: var(--brand-accent); animation: ds-swipe 1.6s var(--ease-out) infinite; }
+  @keyframes ds-swipe { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(.5rem); } }
+  @media (max-width: 991px) { .ds-swipe-hint { display: inline-flex; } }
+  @media (prefers-reduced-motion: reduce) { .ds-swipe-hint__arrow { animation: none; } }
+</style>

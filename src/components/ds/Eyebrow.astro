@@ -1,0 +1,14 @@
+---
+// Rótulo de seção: a marca "e" da Celure + uma palavra curta ("Sobre Nós", "Serviços").
+import Icon from './Icon.astro';
+interface Props { class?: string }
+const { class: className } = Astro.props;
+---
+<p class:list={['ds-eyebrow', className]}>
+  <Icon name="celure-mark" size="1.125rem" />
+  <span class="body-md"><slot /></span>
+</p>
+
+<style>
+  .ds-eyebrow { display: flex; align-items: center; gap: .5rem; }
+</style>

@@ -1,0 +1,106 @@
+---
+// Cotação: foto à esquerda e formulário de campos "só com fio" à direita, dividido por fios white-20.
+// Ao enviar, monta a mensagem e abre o WhatsApp numa nova aba (src/lib/whatsapp.ts).
+import Eyebrow from '../ds/Eyebrow.astro';
+import InputGroup from '../ds/InputGroup.astro';
+import Button from '../ds/Button.astro';
+
+const servicosOpcoes = [
+  { value: 'Emissão Inteligente de Passagens Aéreas', label: 'Emissão Inteligente de Passagens (Milhas/Dinheiro)' },
+  { value: 'Planejamento de Roteiro Sob Medida', label: 'Planejamento & Roteiro Sob Medida' },
+  { value: 'Consultoria de Milhas e Cartões de Crédito', label: 'Consultoria de Milhas & Cartões de Crédito' },
+  { value: 'Viagens Exclusivas & Experiências Premium', label: 'Viagens Exclusivas & Experiências Premium' },
+  { value: 'Viagem Completa (Voo + Hotel + Roteiro)', label: 'Viagem Completa (Voo + Hotel + Roteiro)' },
+];
+const viajantes = ['1 pessoa (Solo)', '2 pessoas (Casal/Amigos)', '3 a 4 pessoas (Família)', '5+ pessoas (Grupo)'];
+---
+<section id="cotacao" class="cotacao" aria-labelledby="cotacao-title">
+  <div class="cotacao__media">
+    <img src="/assets/images/lucas-amsterda.jpg" alt="Lucas Müller, fundador da Celure, numa ponte sobre um canal de Amsterdã, Holanda" loading="lazy" decoding="async" />
+  </div>
+  <div class="cotacao__panel">
+    <div class="cotacao__head">
+      <Eyebrow>Primeiro passo sem compromisso</Eyebrow>
+      <h2 id="cotacao-title" class="h3">Vamos planejar sua próxima grande experiência?</h2>
+      <p class="body-md color-white-60">Preencha os dados abaixo para entendermos seu desejo e iniciarmos o atendimento exclusivo direto no WhatsApp.</p>
+    </div>
+
+    <form id="celure-quote-form" class="cotacao__form">
+      <div class="cotacao__row">
+        <InputGroup id="quote-name" label="Seu nome completo" placeholder="Ex: Lucas Silva" autocomplete="name" required />
+        <InputGroup id="quote-destination" label="Destino desejado" placeholder="Bariloche, Paris, Noronha…" />
+      </div>
+      <InputGroup id="quote-service" as="select" label="Serviço de maior interesse" options={servicosOpcoes} />
+      <div class="cotacao__row">
+        <InputGroup id="quote-dates" label="Época / mês previsto" placeholder="Julho, Réveillon, flexível…" />
+        <InputGroup id="quote-travelers" as="select" label="Viajantes" options={viajantes} />
+      </div>
+      <InputGroup id="quote-details" as="textarea" label="Detalhes adicionais (opcional)" placeholder="Estilo de viagem, classe executiva, milhas que já possui…" />
+      <div class="cotacao__submit">
+        <Button type="submit">Enviar Solicitação para o WhatsApp</Button>
+        <p class="body-sm color-white-50">Seus dados são confidenciais e usados estritamente para montar sua proposta de viagem.</p>
+      </div>
+    </form>
+
+    <div id="quote-success" class="cotacao__success" hidden>
+      <h3 class="h3">Abrimos o seu WhatsApp.</h3>
+      <p class="body-lg color-white-60">É só enviar a mensagem pronta — nossa equipe continua o atendimento por lá. Se a janela não abriu, verifique se o navegador bloqueou pop-ups.</p>
+      <div><Button variant="secondary" id="quote-reset">Enviar outra solicitação</Button></div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cotacao { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--line-chrome); }
+  .cotacao__media { padding: var(--cell-pad); border-right: 1px solid var(--line-chrome); }
+  /* foto do Lucas: enquadrada para o rosto ficar sempre visível */
+  .cotacao__media img { width: 100%; height: 100%; max-height: 52rem; object-fit: cover; object-position: 50% 40%; }
+  .cotacao__panel { position: relative; padding: var(--cell-pad); display: flex; flex-direction: column; gap: 2.5rem; }
+  .cotacao__head { display: flex; flex-direction: column; gap: 1.125rem; }
+  .cotacao__form { display: flex; flex-direction: column; gap: 1.5rem; }
+  .cotacao__row { display: flex; gap: 1.5rem; }
+  .cotacao__submit { display: flex; flex-direction: column; align-items: flex-start; gap: 1rem; margin-top: .5rem; }
+  .cotacao__success {
+    position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: center; gap: 2rem;
+    padding: var(--cell-pad); background: var(--ink-900); animation: cotacao-in var(--dur-panel) var(--ease);
+  }
+  .cotacao__success[hidden] { display: none; }
+  @keyframes cotacao-in { from { opacity: 0; transform: translateY(var(--panel-offset)); } to { opacity: 1; transform: none; } }
+  @media (max-width: 991px) {
+    .cotacao { grid-template-columns: 1fr; }
+    .cotacao__media { border-right: 0; border-bottom: 1px solid var(--line-chrome); }
+    .cotacao__media img { aspect-ratio: 4 / 5; height: auto; }
+  }
+  @media (max-width: 599px) {
+    .cotacao__row { flex-direction: column; gap: 1.5rem; }
+  }
+</style>
+
+<script>
+  // Formulário de cotação: monta a mensagem e abre o WhatsApp em nova aba
+  import { buildQuoteMessage, getWhatsAppUrl } from '../../lib/whatsapp';
+
+  const form = document.getElementById('celure-quote-form') as HTMLFormElement | null;
+  const success = document.getElementById('quote-success');
+  const val = (id: string) => (document.getElementById(id) as HTMLInputElement | null)?.value ?? '';
+
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = buildQuoteMessage({
+      name: val('quote-name'),
+      service: val('quote-service'),
+      destination: val('quote-destination'),
+      dates: val('quote-dates'),
+      travelers: val('quote-travelers'),
+      details: val('quote-details'),
+    });
+    window.open(getWhatsAppUrl(message), '_blank');
+    if (success) success.hidden = false;
+  });
+
+  document.getElementById('quote-reset')?.addEventListener('click', () => {
+    form?.reset();
+    if (success) success.hidden = true;
+    (document.getElementById('quote-name') as HTMLInputElement | null)?.focus();
+  });
+</script>

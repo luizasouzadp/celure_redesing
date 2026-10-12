@@ -1,0 +1,13 @@
+# Só o código do site vai para a Vercel; referências e arquivos de trabalho ficam de fora
+design-system
+referencia-original
+base
+docs
+tests
+test-results
+playwright-report
+dist
+.astro
+.claude
+.superpowers
+/WhatsApp*

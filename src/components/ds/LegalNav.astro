@@ -1,0 +1,17 @@
+---
+// Índice lateral de páginas longas (ex.: Política de Privacidade). O item ativo ganha um fio laranja.
+interface Props { items: { label: string; href: string }[]; activeIndex?: number }
+const { items, activeIndex = 0 } = Astro.props;
+---
+<nav class="ds-legal-nav" aria-label="Nesta página">
+  {items.map((it, i) => (
+    <a href={it.href} class:list={['body-lg', { 'is-active': i === activeIndex }]} aria-current={i === activeIndex ? 'true' : undefined}>{it.label}</a>
+  ))}
+</nav>
+
+<style>
+  .ds-legal-nav { position: sticky; top: calc(var(--header-height) + 2rem); display: flex; flex-direction: column; gap: 1.5rem; }
+  .ds-legal-nav a { display: block; padding: .75rem; border-left: 2px solid transparent; color: var(--white-40); transition: color var(--dur-fast) var(--ease); }
+  .ds-legal-nav a:hover { color: var(--white-100); }
+  .ds-legal-nav a.is-active { color: var(--white-100); border-left-color: var(--brand-accent); }
+</style>

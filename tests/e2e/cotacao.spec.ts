@@ -21,6 +21,7 @@ test('formulário abre o WhatsApp com a mensagem formatada', async ({ page, cont
   expect(text).toContain('📅 *Período/Época:* A definir\n');
   expect(text).toContain('👥 *Viajantes:* 3 a 4 pessoas (Família)\n');
   expect(text).not.toContain('Observações');
+  await expect(page.locator('#quote-success')).toBeVisible(); // painel de confirmação
 });
 
 test('nome é obrigatório', async ({ page, context }) => {

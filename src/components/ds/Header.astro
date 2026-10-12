@@ -1,0 +1,115 @@
+---
+// Cabeçalho fixo e transparente, dividido em células por fios (white-20). Ao rolar a página ganha
+// fundo escuro com desfoque. No celular vira um botão que abre um painel de tela cheia.
+import Icon from './Icon.astro';
+export type NavLink = { label: string; href: string };
+interface Props {
+  brand?: string;
+  homeHref?: string;
+  links: NavLink[];
+  accent?: NavLink & { attrs?: Record<string, string> };
+}
+const { brand = 'Celure', homeHref = '/', links, accent } = Astro.props;
+---
+<header id="navbar" class="ds-header">
+  <div class="ds-header__bar">
+    <a href={homeHref} class="ds-header__brand" aria-label={`${brand} — início`}>
+      <Icon name="celure-mark" size="1.25rem" />
+      <span class="ds-header__brand-name">{brand}</span>
+    </a>
+    <nav class="ds-header__nav" aria-label="Principal">
+      {links.map((l) => <a href={l.href} class="button-sm">{l.label}</a>)}
+    </nav>
+    {accent && <a href={accent.href} class="ds-header__accent button-sm" {...accent.attrs}>{accent.label}</a>}
+    <button id="mobile-menu-toggle" class="ds-header__toggle" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Abrir menu">
+      <span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- Painel do menu no celular. Fica FORA do <header>: o desfoque do cabeçalho prenderia o painel
+     dentro da barra (e ele não cobriria a tela). -->
+<div id="mobile-menu" class="ds-header__panel" hidden>
+  <nav class="ds-header__panel-nav" aria-label="Menu">
+    {links.map((l) => <a href={l.href} class="mobile-nav-link">{l.label}</a>)}
+  </nav>
+  {accent && <a href={accent.href} class="mobile-nav-link ds-header__panel-accent button-sm" {...accent.attrs}>{accent.label}</a>}
+</div>
+
+<script>
+  const header = document.getElementById('navbar');
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const panel = document.getElementById('mobile-menu');
+
+  // Depois de 40px de rolagem o cabeçalho ganha fundo, para não brigar com o conteúdo
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 40);
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  function setOpen(open: boolean) {
+    if (!panel || !toggle) return;
+    panel.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    header?.classList.toggle('is-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  toggle?.addEventListener('click', () => setOpen(panel?.hidden ?? false));
+  document.querySelectorAll('.mobile-nav-link').forEach((l) => l.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && panel && !panel.hidden) setOpen(false); });
+</script>
+
+<style>
+  .ds-header {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    border-bottom: 1px solid var(--line-chrome);
+    transition: background-color var(--dur-panel) var(--ease);
+  }
+  .ds-header.is-scrolled, .ds-header.is-open {
+    background: rgba(9, 27, 32, .94);
+    -webkit-backdrop-filter: blur(var(--blur-header-mobile));
+    backdrop-filter: blur(var(--blur-header-mobile));
+  }
+  .ds-header__bar { display: flex; align-items: stretch; height: var(--header-height); }
+  .ds-header__brand {
+    display: flex; align-items: center; gap: .5rem; padding: 0 var(--container-pad);
+    border-right: 1px solid var(--line-chrome);
+  }
+  .ds-header__brand-name { font-size: var(--logo-title-size); font-weight: 600; letter-spacing: var(--logo-title-ls); line-height: 130%; }
+  .ds-header__nav { display: flex; align-items: center; gap: 1.5rem; margin-left: auto; padding-right: 1.5rem; }
+  .ds-header__nav a, .ds-header__accent { transition: color var(--dur-fast) var(--ease); }
+  .ds-header__nav a:hover, .ds-header__accent:hover { color: var(--brand-accent); }
+  .ds-header__accent { display: flex; align-items: center; padding: 0 var(--container-pad); border-left: 1px solid var(--line-chrome); }
+  .ds-header__toggle {
+    display: none; margin-left: auto; width: var(--header-height); padding: 0; border: 0;
+    border-left: 1px solid var(--line-chrome); background: none; cursor: pointer;
+    flex-direction: column; align-items: center; justify-content: center; gap: .4rem;
+  }
+  .ds-header__toggle span { display: block; width: 1.5rem; height: 1.5px; background: var(--white-100); transition: transform var(--dur-panel) var(--ease); }
+  .ds-header.is-open .ds-header__toggle span:first-child { transform: translateY(.2rem) rotate(45deg); }
+  .ds-header.is-open .ds-header__toggle span:last-child { transform: translateY(-.25rem) rotate(-45deg); }
+
+  .ds-header__panel {
+    position: fixed; z-index: 99; top: var(--header-height); left: 0; right: 0; bottom: 0;
+    display: flex; flex-direction: column; justify-content: space-between; gap: 2rem;
+    padding: 1rem var(--container-pad) 2rem; background: var(--ink-900); overflow-y: auto;
+    animation: ds-panel-in var(--dur-panel) var(--ease);
+  }
+  .ds-header__panel[hidden] { display: none; }
+  .ds-header__panel-nav { display: flex; flex-direction: column; }
+  .ds-header__panel-nav a {
+    display: flex; align-items: center; justify-content: space-between; min-height: 4rem;
+    border-bottom: 1px solid var(--line-hairline);
+    font-size: 1.75rem; font-weight: 600; letter-spacing: -1px; line-height: 120%;
+  }
+  .ds-header__panel-nav a::after { content: '+'; font-weight: 400; color: var(--white-40); }
+  .ds-header__panel-nav a:active { color: var(--brand-accent); }
+  .ds-header__panel-accent { display: flex; justify-content: center; padding: 1.25rem; border-radius: var(--radius-pill); background: var(--white-100); color: var(--brand-green); }
+  @keyframes ds-panel-in { from { opacity: 0; transform: translateY(var(--panel-offset)); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 991px) {
+    .ds-header__nav, .ds-header__accent { display: none; }
+    .ds-header__toggle { display: flex; }
+    .ds-header { background: rgba(9, 27, 32, .85); -webkit-backdrop-filter: blur(var(--blur-header-mobile)); backdrop-filter: blur(var(--blur-header-mobile)); }
+  }
+</style>

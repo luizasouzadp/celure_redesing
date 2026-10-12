@@ -1,0 +1,101 @@
+/* Celure Design System — base e classes utilitárias.
+   Fonte da verdade: design-system/tokens/base.css. Os nomes das classes espelham o design system
+   (.h1…, .body-*, .color-white-*, .container, .padding-global). */
+
+/* Tamanho-raiz fluido: tudo em rem acompanha a largura da tela.
+   Desktop segue o design system (1.11111vw, 16px a partir de 1440). O piso de 12.5px evita
+   texto miúdo em notebooks pequenos; tablet e celular têm escala própria. */
+html { font-size: max(1.11111vw, 12.5px); scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
+@media (min-width: 1440px) { html { font-size: 16px; } }
+@media (min-width: 1920px) { html { font-size: .833333vw; } }
+@media (max-width: 991px) { html { font-size: clamp(14px, 2.08vw, 16px); } }
+@media (max-width: 479px) { html { font-size: 3.9vw; } } /* um pouco menor que o design system original (4.26667vw), a pedido, para o celular ficar mais leve */
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--surface-page);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+a { color: var(--white-100); text-decoration: none; }
+img, video { max-width: 100%; display: block; }
+button { font: inherit; color: inherit; }
+::selection { background: var(--brand-accent); color: var(--brand-green); }
+:focus-visible { outline: 2px solid var(--brand-accent); outline-offset: 3px; }
+
+/* Escala tipográfica */
+.h1 { font-size: var(--h1-size); line-height: var(--h1-lh); letter-spacing: var(--h1-ls); font-weight: 600; }
+.h2 { font-size: var(--h2-size); line-height: var(--h2-lh); letter-spacing: var(--h2-ls); font-weight: 600; text-wrap: balance; }
+.h3 { font-size: var(--h3-size); line-height: var(--h3-lh); letter-spacing: var(--h3-ls); font-weight: 600; text-wrap: balance; }
+.h4 { font-size: var(--h4-size); line-height: var(--h4-lh); letter-spacing: var(--h4-ls); font-weight: 600; }
+.body-xxl { font-size: var(--body-xxl-size); line-height: var(--body-xxl-lh); letter-spacing: var(--body-xxl-ls); font-weight: 600; }
+.body-xl { font-size: var(--body-xl-size); line-height: var(--body-xl-lh); letter-spacing: var(--body-xl-ls); font-weight: 500; }
+.body-lg { font-size: var(--body-lg-size); line-height: var(--body-lg-lh); letter-spacing: var(--body-lg-ls); font-weight: 500; }
+.body-lg-semibold { font-size: var(--body-lg-size); line-height: 100%; letter-spacing: -.5px; font-weight: 600; }
+.body-md { font-size: var(--body-md-size); line-height: var(--body-md-lh); letter-spacing: var(--body-md-ls); font-weight: 500; }
+.body-md-regular { font-size: 1rem; line-height: 130%; letter-spacing: -.5px; font-weight: 400; }
+.body-sm { font-size: var(--body-sm-size); line-height: var(--body-sm-lh); letter-spacing: var(--body-sm-ls); font-weight: 400; }
+.button-sm { font-size: var(--button-sm-size); line-height: var(--button-sm-lh); letter-spacing: var(--button-sm-ls); font-weight: 600; }
+.title-xs { font-size: var(--title-xs-size); line-height: var(--title-xs-lh); letter-spacing: var(--title-xs-ls); }
+.count { font-size: var(--count-size); line-height: var(--count-lh); font-weight: var(--count-weight); color: var(--white-50); white-space: nowrap; }
+
+/* Cores de texto */
+.color-white-60 { color: var(--white-60); }
+.color-white-50 { color: var(--white-50); }
+.color-white-40 { color: var(--white-40); }
+.color-brand-green { color: var(--brand-green); }
+.color-accent { color: var(--brand-accent); }
+
+/* Layout */
+.container { width: 100%; padding-left: var(--container-pad); padding-right: var(--container-pad); }
+.padding-global { padding-top: var(--section-pad); padding-bottom: var(--section-pad); }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+/* Tablet e celular: o design system original só define o desktop; estes valores mantêm
+   as mesmas proporções (títulos compactos, tracking negativo) em telas estreitas. */
+@media (max-width: 991px) {
+  :root {
+    --h1-size: 9rem; --h1-ls: -6px;
+    --h2-size: 2.75rem; --h2-ls: -2px;
+    --h3-size: 2.25rem; --h3-ls: -1.6px;
+    --h4-size: 1.5rem; --h4-ls: -1px;
+    --body-xxl-size: 1.375rem; --body-xxl-ls: -1px;
+    --body-xl-size: 1.25rem; --body-xl-ls: -.6px;
+    --container-pad: var(--container-pad-mobile);
+    --section-pad: var(--section-pad-mobile);
+    --cell-pad: 1.5rem;
+  }
+}
+@media (max-width: 479px) {
+  :root {
+    --h1-size: 6.25rem; --h1-ls: -4px;
+    --h2-size: 2.25rem; --h2-ls: -1.5px;
+    --h3-size: 1.875rem; --h3-ls: -1.2px;
+    --body-xxl-size: 1.25rem; --body-xxl-ls: -.6px;
+    --cell-pad: 1.25rem;
+  }
+  /* legendas e contadores nunca ficam menores que o legível */
+  .title-xs { font-size: max(11.5px, var(--title-xs-size)); }
+  .count { font-size: max(10.5px, var(--count-size)); }
+  .body-sm { font-size: max(13px, var(--body-sm-size)); }
+}
+
+/* Movimento: entradas "fade-up" com atraso escalonado (data-reveal + style="--d:…").
+   Só esconde o conteúdo quando o JavaScript está ativo (classe .js no <html>). */
+.js [data-reveal] { opacity: 0; transform: translateY(2rem); }
+.js [data-reveal].is-in {
+  opacity: 1; transform: none;
+  transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out);
+  transition-delay: var(--d, 0s);
+}
+@media (prefers-reduced-motion: reduce) {
+  .js [data-reveal] { opacity: 1; transform: none; }
+}

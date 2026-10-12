@@ -1,0 +1,162 @@
+---
+// Explore por destino: mapa-múndi com um pontinho em cada país por onde o Lucas passou.
+// Os países com foto ganham miniatura e abrem a foto grande (DestPhotoLightbox).
+import SectionHead from '../ds/SectionHead.astro';
+import WorldMap from '../ds/WorldMap.astro';
+import PersonCard from '../ds/PersonCard.astro';
+import SwipeHint from '../ds/SwipeHint.astro';
+import { viagens, origem } from '../../data/viagens';
+import { destinos } from '../../data/destinos';
+
+// Atalhos de região (tablet/celular): o mapa desliza até a média dos países listados
+const regioes = [
+  { id: 'americas', label: 'Américas', ancoras: ['Colômbia', 'Estados Unidos', 'Argentina'] },
+  { id: 'europa', label: 'Europa', ancoras: ['Itália', 'Alemanha', 'Turquia'] },
+  { id: 'asia', label: 'Ásia', ancoras: ['Catar', 'Japão'] },
+];
+const fotoDe = (key?: string) => destinos.find((d) => d.key === key);
+const pontos = viagens.map((v) => {
+  const d = fotoDe(v.foto);
+  return {
+    ...v,
+    photo: d && { src: d.src, alt: `${d.caption}, ${d.title}`, attrs: { 'data-dest-photo': d.key } },
+  };
+});
+---
+<section id="destinos" class="destinos padding-global" aria-labelledby="destinos-title">
+  <div class="container">
+    <SectionHead eyebrow="Pelo mundo" id="destinos-title" marginBottom="2rem">
+      <Fragment slot="title">Explore por destino. <span class="color-white-40">Por onde o fundador já passou.</span></Fragment>
+    </SectionHead>
+  </div>
+
+  <div class="container destinos__nav">
+    <div class="destinos__chips" role="group" aria-label="Ir para a região">
+      {regioes.map((r, i) => (
+        <button type="button" class:list={['destinos__chip button-sm', { 'is-active': i === 1 }]} data-map-region={r.id} data-anchors={r.ancoras.join('|')} aria-pressed={i === 1 ? 'true' : 'false'}>{r.label}</button>
+      ))}
+    </div>
+    <SwipeHint label="Deslize o mapa" />
+  </div>
+
+  <div class="destinos__map" tabindex="-1">
+    <div class="destinos__map-inner">
+      <WorldMap points={pontos} origin={origem} label={`Mapa com os ${viagens.length} países visitados pelo fundador`} />
+    </div>
+  </div>
+
+  <div class="container destinos__foot">
+    <p class="destinos__count"><span class="h3">{viagens.length}+</span><span class="body-md color-white-50">/ países visitados em 4 continentes</span></p>
+    <p class="body-sm color-white-50 destinos__hint">Toque nas fotos para ampliar · passe pelos pontos para ver o país</p>
+  </div>
+
+  <div class="container destinos__photos-head">
+    <span class="body-md">Fotos do fundador</span>
+    <SwipeHint />
+  </div>
+  <div class="destinos__photos" aria-label="Fotos do fundador pelo mundo">
+    {destinos.map((d) => (
+      <PersonCard image={d.src} alt={`${d.caption}, ${d.title}`} name={d.title} caption={d.caption} button={{ 'data-dest-photo': d.key, 'aria-label': `Ver foto: ${d.caption}, ${d.title}` }} />
+    ))}
+  </div>
+</section>
+
+<style>
+  /* O mapa funciona como fundo: some suavemente em cima e embaixo, fundindo com a página */
+  .destinos__map {
+    position: relative;
+    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 85%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, #000 12%, #000 85%, transparent);
+  }
+  .destinos__map-inner { padding: 3rem 0 2rem; }
+  .destinos__foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 1rem 2rem; margin-top: -1rem; }
+  .destinos__count { display: flex; align-items: baseline; gap: .75rem; }
+  .destinos__photos { display: none; }
+
+  .destinos__nav, .destinos__photos-head { display: none; }
+
+  /* Tablet e celular: o mapa mantém um tamanho legível e desliza para o lado. As bordas somem
+     (sinal de que há mais mapa), há atalhos de região e o aviso "deslize". */
+  @media (max-width: 991px) {
+    .destinos__nav { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: .5rem; }
+    .destinos__chips { display: flex; gap: .5rem; }
+    .destinos__chip {
+      min-height: 2.75rem; padding: 0 1.125rem; border: 1px solid var(--white-20); border-radius: var(--radius-pill);
+      background: transparent; color: var(--white-100); cursor: pointer;
+      transition: background-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease);
+    }
+    .destinos__chip.is-active { background: var(--white-100); color: var(--brand-green); border-color: var(--white-100); }
+    .destinos__chip:active { background: var(--brand-accent); border-color: var(--brand-accent); color: var(--brand-green); }
+    .destinos__map {
+      overflow-x: auto; scrollbar-width: none; scroll-behavior: smooth; overscroll-behavior-x: contain;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+    }
+    .destinos__map::-webkit-scrollbar { display: none; }
+    .destinos__map-inner { width: 62rem; padding: 4.5rem var(--container-pad) 3rem; }
+    .destinos__foot { margin-top: 1rem; }
+  }
+  @media (max-width: 767px) {
+    .destinos__hint { display: none; }
+    .destinos__photos-head { display: flex; justify-content: space-between; align-items: center; margin-top: 2.5rem; margin-bottom: 1rem; }
+    .destinos__photos {
+      display: grid; grid-auto-flow: column; grid-auto-columns: 62%;
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      border-top: 1px solid var(--line-hairline); border-bottom: 1px solid var(--line-hairline);
+    }
+    .destinos__photos::-webkit-scrollbar { display: none; }
+    .destinos__photos > :global(*) { scroll-snap-align: start; }
+    .destinos__photos > :global(* + *) { border-left: 1px solid var(--line-hairline); }
+  }
+</style>
+
+<script>
+  // Tablet/celular: atalhos de região, região ativa acompanhando o dedo e uma "cutucada" no mapa
+  // na primeira vez que ele aparece, mostrando que dá para deslizar.
+  const map = document.querySelector<HTMLElement>('.destinos__map');
+  const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-map-region]')];
+
+  if (map) {
+    const centerOf = (chip: HTMLButtonElement) => {
+      const names = chip.dataset.anchors!.split('|');
+      const xs = names
+        .map((n) => map.querySelector<HTMLElement>(`[aria-label="${n}"], [aria-label^="Ver foto:"][aria-label$=", ${n}"]`))
+        .filter(Boolean)
+        .map((el) => el!.getBoundingClientRect().left - map.getBoundingClientRect().left + map.scrollLeft);
+      return xs.reduce((a, b) => a + b, 0) / xs.length;
+    };
+    const scrollToRegion = (chip: HTMLButtonElement, smooth = true) =>
+      map.scrollTo({ left: centerOf(chip) - map.clientWidth / 2, behavior: smooth ? 'smooth' : 'instant' });
+    const setActive = (active: HTMLButtonElement) => chips.forEach((c) => {
+      c.classList.toggle('is-active', c === active);
+      c.setAttribute('aria-pressed', String(c === active));
+    });
+
+    if (map.scrollWidth > map.clientWidth && chips.length) {
+      // começa na Europa, onde está a maioria dos pontos
+      scrollToRegion(chips[1], false);
+      chips.forEach((c) => c.addEventListener('click', () => { setActive(c); scrollToRegion(c); }));
+
+      let raf = 0;
+      map.addEventListener('scroll', () => {
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(() => {
+          const mid = map.scrollLeft + map.clientWidth / 2;
+          const nearest = chips.reduce((best, c) => (Math.abs(centerOf(c) - mid) < Math.abs(centerOf(best) - mid) ? c : best));
+          setActive(nearest);
+        });
+      }, { passive: true });
+
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver(([e]) => {
+          if (!e.isIntersecting) return;
+          io.disconnect();
+          const start = map.scrollLeft;
+          setTimeout(() => map.scrollTo({ left: start + 90, behavior: 'smooth' }), 400);
+          setTimeout(() => map.scrollTo({ left: start, behavior: 'smooth' }), 1100);
+        }, { threshold: 0.5 });
+        io.observe(map);
+      }
+    }
+  }
+</script>

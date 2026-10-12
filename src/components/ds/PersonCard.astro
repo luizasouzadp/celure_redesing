@@ -1,0 +1,37 @@
+---
+// Foto vertical com nome e legenda sobrepostos no canto inferior. Conteúdo extra (ex.: citação)
+// entra no slot e aparece abaixo da foto. Com `button`, a célula vira um botão (ex.: abrir foto).
+interface Props {
+  image: string;
+  alt?: string;
+  name: string;
+  caption?: string;
+  aspect?: string;
+  button?: Record<string, string>;
+}
+const { image, alt = '', name, caption, aspect = '260 / 325', button } = Astro.props;
+const Tag = button ? 'button' : 'div';
+---
+<div class="ds-person-card">
+  <Tag class:list={['ds-person-card__frame', { 'ds-person-card__frame--button': button }]} type={button ? 'button' : undefined} {...button}>
+    <img src={image} alt={alt} loading="lazy" decoding="async" style={`aspect-ratio:${aspect}`} />
+    <span class="ds-person-card__caption">
+      <span class="body-lg-semibold">{name}</span>
+      {caption && <span class="body-sm ds-person-card__sub">{caption}</span>}
+    </span>
+  </Tag>
+  {Astro.slots.has('default') && <div class="ds-person-card__extra"><slot /></div>}
+</div>
+
+<style>
+  .ds-person-card { padding: var(--cell-pad); height: 100%; display: flex; flex-direction: column; gap: 1.5rem; }
+  .ds-person-card__frame { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; color: inherit; text-align: left; overflow: hidden; }
+  .ds-person-card__frame img { width: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
+  .ds-person-card__frame--button { cursor: pointer; }
+  .ds-person-card__frame--button:hover img { transform: scale(1.04); }
+  /* Sombra mínima embaixo da foto só para garantir a leitura do nome em fotos claras */
+  .ds-person-card__frame::after { content: ''; position: absolute; inset: 50% 0 0; background: linear-gradient(to top, rgba(9, 27, 32, .7), transparent); pointer-events: none; }
+  .ds-person-card__caption { position: absolute; left: 1rem; right: 1rem; bottom: 1rem; z-index: 1; display: flex; flex-direction: column; gap: .25rem; }
+  .ds-person-card__sub { color: var(--white-60); }
+  .ds-person-card__extra { display: flex; flex-direction: column; gap: .75rem; }
+</style>

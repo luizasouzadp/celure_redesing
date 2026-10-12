@@ -1,0 +1,100 @@
+---
+// Experiência VIP: dois blocos de texto curto + vídeo vertical, espelhados (em terra: texto à esquerda e
+// vídeo à direita; nos ares: o contrário). Depois, as 3 garantias Celure.
+import HairlineGrid from '../ds/HairlineGrid.astro';
+import IncludedList from '../ds/IncludedList.astro';
+import TextLink from '../ds/TextLink.astro';
+import Eyebrow from '../ds/Eyebrow.astro';
+import AmbientVideo from '../ds/AmbientVideo.astro';
+import { celure } from '../../config/celure';
+
+const blocos = [
+  {
+    eyebrow: 'Experiência VIP', titulo: 'Salas VIP & Lounges Exclusivos.', dim: 'Espere seu voo como convidado de honra.',
+    texto: 'Longe das filas e do barulho do saguão — e com acesso liberado pelos cartões que você já tem.',
+    itens: [
+      { icon: 'included-meals', label: 'Buffet & open bar' },
+      { label: 'Duchas & bem-estar' },
+      { label: 'Silêncio & Wi-Fi' },
+      { label: 'Acesso com seus cartões' },
+    ],
+    nota: 'Incluso nas consultorias e viagens Celure', cta: 'Saber como acessar',
+    video: { src: '/assets/videos/lounge.mp4', poster: '/assets/images/lounge-poster.webp', label: 'Vídeo de uma sala VIP de aeroporto', aspect: '540 / 1170' },
+  },
+  {
+    eyebrow: 'Nos ares', titulo: 'Classe Executiva.', dim: 'Chegue descansado, com até 65% de economia.',
+    texto: 'Poltrona que vira cama, menu assinado e kit de bordo — emitida com milhas por muito menos.',
+    itens: [
+      { icon: 'included-accommodation', label: 'Cama lie-flat 180°' },
+      { icon: 'included-meals', label: 'Menu assinado por chefs' },
+      { label: 'Amenity kit exclusivo' },
+      { label: 'Cinema & fone antirruído' },
+    ],
+    nota: 'Emissão com economia de até 65%', cta: 'Falar sobre Classe Executiva',
+    video: { src: '/assets/videos/classe-executiva.mp4', poster: '/assets/images/classe-executiva-poster.webp', label: 'Vídeo de uma poltrona-cama de classe executiva', aspect: '464 / 832' },
+  },
+];
+
+const garantias = [
+  { n: '01', titulo: 'Zero Teoria: Nós Fazemos Tudo', texto: 'A Celure não é curso. Você não precisa passar noites estudando regras ou caçando assentos: montamos a estratégia, emitimos as passagens e entregamos tudo pronto no seu WhatsApp.' },
+  { n: '02', titulo: 'Suporte Humano 24h na Viagem', texto: 'Voo atrasou? Conexão perdida? Nossa equipe entra em ação no WhatsApp 24 horas por dia durante toda a sua viagem para remarcar e resolver sem você se estressar.' },
+  { n: '03', titulo: '100% Bilhetes Oficiais & e-Tickets', texto: `Todas as emissões geram localizadores oficiais no aplicativo das companhias aéreas, com respaldo formal sob o CNPJ ${celure.cnpj}.` },
+];
+---
+<section id="luxo" class="vip" aria-labelledby="vip-title">
+  {blocos.map((b, i) => (
+    <article class:list={['vip__bloco', { 'vip__bloco--invertido': i % 2 === 1 }]}>
+      <div class="vip__texto">
+        <Eyebrow>{b.eyebrow}</Eyebrow>
+        <h2 id={i === 0 ? 'vip-title' : undefined} class="h2">{b.titulo} <span class="color-white-40">{b.dim}</span></h2>
+        <p class="body-lg color-white-60 vip__frase">{b.texto}</p>
+        <IncludedList items={b.itens} />
+        <div class="vip__rodape">
+          <span class="body-sm color-white-50">{b.nota}</span>
+          <TextLink href="#cotacao">{b.cta}</TextLink>
+        </div>
+      </div>
+      <div class="vip__midia" data-reveal>
+        <AmbientVideo {...b.video} />
+      </div>
+    </article>
+  ))}
+
+  <HairlineGrid columns={3} tablet={1} edges="none" class="vip__garantias">
+    {garantias.map((g, i) => (
+      <article class="vip__garantia" data-reveal style={`--d:${i * 0.1}s`}>
+        <span class="count">{g.n}</span>
+        <h3 class="h4">{g.titulo}</h3>
+        <p class="body-md color-white-60">{g.texto}</p>
+      </article>
+    ))}
+  </HairlineGrid>
+</section>
+
+<style>
+  /* Bloco: texto (55%) + vídeo vertical (45%), separados por um fio; o segundo bloco é espelhado */
+  .vip__bloco { display: grid; grid-template-columns: 55fr 45fr; border-bottom: 1px solid var(--line-hairline); }
+  .vip__bloco:first-child { border-top: 1px solid var(--line-hairline); }
+  .vip__texto { display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; padding: var(--section-pad) var(--container-pad); }
+  .vip__texto .h2 { max-width: 36rem; }
+  .vip__frase { max-width: 30rem; }
+  .vip__texto :global(.ds-included-list) { max-width: 34rem; margin-top: 1rem; }
+  .vip__rodape { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; max-width: 34rem; margin-top: 1rem; }
+  .vip__midia { display: flex; align-items: center; justify-content: center; padding: var(--cell-pad); border-left: 1px solid var(--line-hairline); }
+  .vip__midia :global(.ds-ambient-video) { width: auto; max-width: 100%; max-height: 78svh; }
+  .vip__bloco--invertido .vip__texto { order: 2; }
+  .vip__bloco--invertido .vip__midia { order: 1; border-left: 0; border-right: 1px solid var(--line-hairline); }
+  .vip__bloco--invertido { grid-template-columns: 45fr 55fr; }
+
+
+  .vip__garantia { display: flex; flex-direction: column; gap: 1rem; padding: var(--cell-pad); height: 100%; }
+  .vip__garantia .h4 { margin-top: 3rem; }
+
+  @media (max-width: 991px) {
+    .vip__bloco, .vip__bloco--invertido { grid-template-columns: 1fr; }
+    .vip__bloco--invertido .vip__texto { order: 0; }
+    .vip__midia, .vip__bloco--invertido .vip__midia { border: 0; padding: 0 var(--container-pad) var(--section-pad); }
+    .vip__midia :global(.ds-ambient-video) { width: 100%; max-height: 70svh; }
+    .vip__garantia .h4 { margin-top: 1.5rem; }
+  }
+</style>

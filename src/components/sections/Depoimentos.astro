@@ -1,0 +1,82 @@
+---
+// Clientes & Histórias: célula de texto fixa à esquerda (título, nota 5.0, setas) e, à direita,
+// uma faixa rolável de PersonCards com a foto real da viagem e o relato.
+import HairlineGrid from '../ds/HairlineGrid.astro';
+import PersonCard from '../ds/PersonCard.astro';
+import Eyebrow from '../ds/Eyebrow.astro';
+import Icon from '../ds/Icon.astro';
+import SwipeHint from '../ds/SwipeHint.astro';
+import { depoimentos } from '../../data/depoimentos';
+
+const legenda = (assinatura: string) => assinatura.replace(/^@\S+\s·\s/, '');
+---
+<section id="depoimentos" class="depo padding-global" aria-labelledby="depo-title">
+  <HairlineGrid columns={2} tablet={1} template="minmax(0, 1fr) minmax(0, 2fr)">
+    <div class="depo__intro">
+      <div class="depo__intro-top">
+        <Eyebrow>Clientes & Histórias</Eyebrow>
+        <h2 id="depo-title" class="h2">Histórias de quem viajou de verdade <span class="color-white-40">com a Celure</span></h2>
+        <p class="body-md color-white-60">De viagens internacionais em classe executiva a roteiros em família e aventuras na neve com grupos de amigos.</p>
+      </div>
+      <div class="depo__intro-bottom">
+        <div class="depo__rating">
+          <span class="h4">5.0</span>
+          <Icon name="stars" width="3.3125rem" height=".5625rem" label="5 de 5 estrelas" />
+          <span class="body-sm color-white-50">de avaliação</span>
+        </div>
+        <SwipeHint label="Deslize para ver as histórias" />
+        <div class="depo__nav">
+          <button type="button" data-testimonial-scroll="-1" aria-label="Histórias anteriores"><Icon name="arrow-left" size="1.25rem" /></button>
+          <button type="button" data-testimonial-scroll="1" aria-label="Próximas histórias"><Icon name="arrow-right" size="1.25rem" /></button>
+        </div>
+      </div>
+    </div>
+
+    <div id="testimonial-carousel" class="depo__track" tabindex="0" aria-label="Depoimentos de clientes">
+      {depoimentos.map((d) => (
+        <PersonCard image={d.img} alt={d.alt} name={d.local} caption={legenda(d.assinatura)}>
+          <p class="body-sm color-white-60">{d.texto}</p>
+        </PersonCard>
+      ))}
+    </div>
+  </HairlineGrid>
+</section>
+
+<style>
+  .depo__intro { display: flex; flex-direction: column; justify-content: space-between; gap: 3rem; padding: var(--cell-pad); }
+  .depo__intro-top { display: flex; flex-direction: column; gap: 1.5rem; }
+  .depo__intro-bottom { display: flex; flex-direction: column; gap: 2rem; }
+  .depo__rating { display: flex; align-items: center; gap: .75rem; }
+  .depo__nav { display: flex; gap: .5rem; }
+  .depo__nav button {
+    display: grid; place-items: center; width: 3rem; height: 3rem; padding: 0; cursor: pointer;
+    border: 0; border-radius: var(--radius-pill); background: var(--brand-green); color: var(--white-100);
+    transition: background-color var(--dur-fast) var(--ease);
+  }
+  .depo__nav button:hover { background: var(--brand-accent); }
+  .depo__nav button:active { background: var(--button-clicked); }
+
+  .depo__track {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(17rem, 22rem);
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; outline-offset: -2px;
+  }
+  .depo__track::-webkit-scrollbar { display: none; }
+  .depo__track > :global(*) { scroll-snap-align: start; border-left: 1px solid var(--line-hairline); }
+  .depo__track > :global(*:first-child) { border-left: 0; }
+
+  @media (max-width: 991px) {
+    .depo__track { grid-auto-columns: 78%; }
+  }
+</style>
+
+<script>
+  // Setas: rolam a largura de um card
+  const track = document.getElementById('testimonial-carousel');
+  document.querySelectorAll<HTMLElement>('[data-testimonial-scroll]').forEach((btn) =>
+    btn.addEventListener('click', () => {
+      if (!track) return;
+      const card = track.firstElementChild as HTMLElement | null;
+      const width = card ? card.offsetWidth : 320;
+      track.scrollBy({ left: width * Number(btn.dataset.testimonialScroll), behavior: 'smooth' });
+    }));
+</script>

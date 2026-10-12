@@ -1,0 +1,22 @@
+---
+// Botão "X" do design system: troca o desenho no hover (contorno laranja) e no clique.
+import type { HTMLAttributes } from 'astro/types';
+import Icon from './Icon.astro';
+type Props = HTMLAttributes<'button'> & { label?: string };
+const { label = 'Fechar', class: className, ...rest } = Astro.props;
+---
+<button type="button" aria-label={label} class:list={['ds-close', className]} {...rest}>
+  <Icon name="close" size="1.5rem" class="ds-close__rest" />
+  <Icon name="close-hover" size="1.5rem" class="ds-close__hover" />
+  <Icon name="close-clicked" size="1.5rem" class="ds-close__press" />
+</button>
+
+<style>
+  .ds-close { display: grid; width: 1.5rem; height: 1.5rem; padding: 0; border: 0; background: transparent; cursor: pointer; }
+  .ds-close > :global(*) { grid-area: 1 / 1; }
+  .ds-close :global(.ds-close__hover), .ds-close :global(.ds-close__press) { visibility: hidden; }
+  .ds-close:hover :global(.ds-close__rest) { visibility: hidden; }
+  .ds-close:hover :global(.ds-close__hover) { visibility: visible; }
+  .ds-close:active :global(.ds-close__hover) { visibility: hidden; }
+  .ds-close:active :global(.ds-close__press) { visibility: visible; }
+</style>

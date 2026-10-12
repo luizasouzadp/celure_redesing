@@ -1,0 +1,27 @@
+---
+// Lista do que está incluso: ícone de 24px (ou "+") + rótulo, em 1 ou 2 colunas, com fio em cima.
+// `text` opcional acrescenta uma linha de descrição esmaecida abaixo do rótulo.
+import Icon from './Icon.astro';
+export type IncludedItem = { icon?: string; label: string; text?: string };
+interface Props { items: IncludedItem[]; columns?: number }
+const { items, columns = 2 } = Astro.props;
+---
+<ul class="ds-included-list" style={`--cols:${columns}`}>
+  {items.map((it) => (
+    <li class="ds-included-list__item">
+      <Icon name={it.icon ?? 'plus'} size="1.5rem" />
+      <span class="ds-included-list__text">
+        <span class="body-md">{it.label}</span>
+        {it.text && <span class="body-sm color-white-60">{it.text}</span>}
+      </span>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .ds-included-list { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: 1.5rem 2rem; border-top: 1px solid var(--line-hairline); padding-top: 2rem; }
+  .ds-included-list__item { display: flex; align-items: flex-start; gap: .75rem; min-height: 1.5rem; }
+  .ds-included-list__item :global(svg[data-icon="plus"]) { width: 1rem !important; height: 1rem !important; margin: .25rem; }
+  .ds-included-list__text { display: flex; flex-direction: column; gap: .25rem; padding-top: .125rem; }
+  @media (max-width: 599px) { .ds-included-list { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,36 @@
+---
+// Serviços: 4 TripCards numa grade 2×2 de fios que vai até as bordas da tela.
+// O botão de cada card abre o WhatsApp com a mensagem do serviço (src/scripts/cta.ts).
+import SectionHead from '../ds/SectionHead.astro';
+import HairlineGrid from '../ds/HairlineGrid.astro';
+import TripCard from '../ds/TripCard.astro';
+import { servicos } from '../../data/servicos';
+---
+<section id="servicos" class="padding-global" aria-labelledby="servicos-title">
+  <div class="container">
+    <SectionHead eyebrow="Serviços" id="servicos-title">
+      <Fragment slot="title">Soluções completas e sob medida para sua viagem</Fragment>
+      <p class="body-lg color-white-60" style="max-width:40rem">
+        Não trabalhamos com pacotes prontos de gaveta. Cada solicitação é analisada individualmente para entregar a melhor estratégia de rotas, milhas e vivências.
+      </p>
+    </SectionHead>
+  </div>
+  <HairlineGrid columns={2} tablet={1}>
+    {servicos.map((s, i) => (
+      <div data-reveal style={`--d:${(i % 2) * 0.1}s`}>
+        <TripCard
+          title={s.titulo}
+          priceLabel={s.priceLabel}
+          price={s.price}
+          description={s.descricao}
+          image={s.img}
+          alt={s.alt}
+          properties={[...s.props, { label: 'Avaliação', value: 'stars' }]}
+          ctaLabel={s.ctaLabel}
+          ctaHref="#cotacao"
+          ctaAttrs={{ 'data-cta-service': s.cta }}
+        />
+      </div>
+    ))}
+  </HairlineGrid>
+</section>

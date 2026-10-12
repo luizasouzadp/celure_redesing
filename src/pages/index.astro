@@ -1,32 +1,56 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import AnnouncementBar from '../components/AnnouncementBar.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import Sobre from '../components/Sobre.astro';
-import Luxo from '../components/Luxo.astro';
-import Depoimentos from '../components/Depoimentos.astro';
-import Servicos from '../components/Servicos.astro';
-import Passos from '../components/Passos.astro';
-import Cotacao from '../components/Cotacao.astro';
-import Footer from '../components/Footer.astro';
-import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import VideoLightbox from '../components/VideoLightbox.astro';
-import DestPhotoLightbox from '../components/DestPhotoLightbox.astro';
+import Header from '../components/ds/Header.astro';
+import Footer from '../components/ds/Footer.astro';
+import Hero from '../components/sections/Hero.astro';
+import Sobre from '../components/sections/Sobre.astro';
+import Destinos from '../components/sections/Destinos.astro';
+import ExperienciaVip from '../components/sections/ExperienciaVip.astro';
+import Depoimentos from '../components/sections/Depoimentos.astro';
+import Servicos from '../components/sections/Servicos.astro';
+import Cotacao from '../components/sections/Cotacao.astro';
+import WhatsAppFloat from '../components/sections/WhatsAppFloat.astro';
+import DestPhotoLightbox from '../components/sections/DestPhotoLightbox.astro';
+import { celure } from '../config/celure';
+import { ctaMessage, getWhatsAppUrl } from '../lib/whatsapp';
+
+const links = [
+  { label: 'Sobre Nós', href: '#sobre' },
+  { label: 'Experiência VIP', href: '#luxo' },
+  { label: 'Clientes & Histórias', href: '#depoimentos' },
+  { label: 'Serviços', href: '#servicos' },
+];
+const instagram = { label: `@${celure.instagram}`, href: `https://instagram.com/${celure.instagram}`, external: true };
 ---
 <BaseLayout>
-  <AnnouncementBar />
-  <Navbar />
-  <Hero />
-  <Sobre />
-  <Luxo />
-  <Depoimentos />
-  <Servicos />
-  <Passos />
-  <Cotacao />
-  <Footer />
+  <Header links={links} accent={{ label: 'Falar no WhatsApp', href: getWhatsAppUrl(ctaMessage('geral')), attrs: { target: '_blank', rel: 'noopener noreferrer' } }} homeHref="#" />
+  <main>
+    <Hero />
+    <Sobre />
+    <Destinos />
+    <ExperienciaVip />
+    <Depoimentos />
+    <Servicos />
+    <Cotacao />
+  </main>
+  <Footer
+    tagline="“Somos um estilo de viagem moderno, suave e autêntico.” Construída de viajantes para viajantes, com curadoria humana e estratégia de milhas."
+    columns={[
+      { title: 'Navegação rápida', links: [
+        { label: 'Sobre a Celure', href: '#sobre' },
+        { label: 'Depoimentos de clientes', href: '#depoimentos' },
+        { label: 'Serviços & consultoria', href: '#servicos' },
+      ] },
+      { title: 'Atendimento & redes', links: [
+        instagram,
+        { label: 'WhatsApp Business oficial', href: getWhatsAppUrl(ctaMessage('geral')), external: true },
+      ] },
+    ]}
+    copy="© 2026 Celure Viagens e Turismo"
+    legalLinks={[{ label: `CNPJ ${celure.cnpj}` }]}
+    credit="Atuação remota para todo o Brasil e exterior"
+    bigWord="Celure"
+  />
   <WhatsAppFloat />
-
   <DestPhotoLightbox />
-  <VideoLightbox />
 </BaseLayout>

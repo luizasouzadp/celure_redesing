@@ -1,0 +1,25 @@
+---
+// Trilha de navegação para páginas internas: itens esmaecidos separados por "/", o atual em branco.
+interface Props { items: { label: string; href?: string }[] }
+const { items } = Astro.props;
+---
+<nav aria-label="Você está em">
+  <ol class="ds-breadcrumbs">
+    {items.map((it, i) => {
+      const last = i === items.length - 1;
+      return (
+        <li class:list={['body-sm', { 'is-current': last }]} aria-current={last ? 'page' : undefined}>
+          {last || !it.href ? it.label : <a href={it.href}>{it.label}</a>}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<style>
+  .ds-breadcrumbs { display: flex; flex-wrap: wrap; gap: .5rem; color: var(--white-40); }
+  .ds-breadcrumbs li:not(:last-child)::after { content: '/'; margin-left: .5rem; }
+  .ds-breadcrumbs a { color: inherit; transition: color var(--dur-fast) var(--ease); }
+  .ds-breadcrumbs a:hover { color: var(--white-100); }
+  .ds-breadcrumbs .is-current { color: var(--white-100); }
+</style>

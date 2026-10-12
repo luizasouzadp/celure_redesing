@@ -1,0 +1,141 @@
+---
+// Vitrine viva do Celure Design System: cores, tipografia e todos os componentes de src/components/ds.
+// Fica fora do menu e não é indexada pelo Google.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ds/Button.astro';
+import TextLink from '../components/ds/TextLink.astro';
+import CloseButton from '../components/ds/CloseButton.astro';
+import Icon from '../components/ds/Icon.astro';
+import Eyebrow from '../components/ds/Eyebrow.astro';
+import SectionHead from '../components/ds/SectionHead.astro';
+import HairlineGrid from '../components/ds/HairlineGrid.astro';
+import StatCard from '../components/ds/StatCard.astro';
+import TripCard from '../components/ds/TripCard.astro';
+import JourneyStep from '../components/ds/JourneyStep.astro';
+import StepItem from '../components/ds/StepItem.astro';
+import PersonCard from '../components/ds/PersonCard.astro';
+import IncludedList from '../components/ds/IncludedList.astro';
+import InputGroup from '../components/ds/InputGroup.astro';
+import Breadcrumbs from '../components/ds/Breadcrumbs.astro';
+import LegalNav from '../components/ds/LegalNav.astro';
+import CookieBanner from '../components/ds/CookieBanner.astro';
+import WorldMap from '../components/ds/WorldMap.astro';
+
+const cores = [
+  ['--ink-900', '#091b20', 'Fundo da página'],
+  ['--brand-green', '#0d2e37', 'Botão secundário'],
+  ['--brand-accent', '#fb9826', 'Hover / destaque'],
+  ['--button-clicked', '#fa8805', 'Clique / ativo'],
+  ['--white-100', '#ffffff', 'Texto principal'],
+  ['--white-60', '60%', 'Texto de apoio'],
+  ['--white-40', '40%', 'Frase esmaecida'],
+  ['--white-10', '10%', 'Fios da grade'],
+];
+const tipos = [
+  ['h1', 'Viaje'], ['h2', 'Muito mais do que uma agência'], ['h3', 'Vamos planejar?'], ['h4', 'Roteiros Sob Medida'],
+  ['body-xxl', 'Com mais conforto e use as milhas a seu favor.'], ['body-xl', 'A Celure nasceu da vivência prática de Lucas.'],
+  ['body-lg', 'Texto de parágrafo grande.'], ['body-md', 'Texto de parágrafo padrão.'], ['body-sm', 'Legendas e rótulos.'],
+];
+const icones = ['pin', 'calendar', 'users', 'location', 'earth', 'yoga', 'plus', 'arrow-left', 'arrow-right', 'play', 'included-accommodation', 'included-meals', 'included-integration', 'step-1', 'step-2', 'step-3', 'step-4'];
+---
+<BaseLayout title="Celure Design System" noindex>
+  <main class="ds-page">
+    <section class="padding-global container">
+      <Breadcrumbs items={[{ label: 'Início', href: '/' }, { label: 'Design System' }]} />
+      <h1 class="h2 ds-page__title">Celure Design System <span class="color-white-40">— peças oficiais do site.</span></h1>
+      <p class="body-lg color-white-60 ds-page__lead">Regras completas em <code>DESIGN.md</code>. Tokens em <code>src/styles/tokens</code>, componentes em <code>src/components/ds</code>.</p>
+    </section>
+
+    <section class="padding-global container">
+      <SectionHead eyebrow="Cores"><Fragment slot="title">Modo escuro, um único laranja. <span class="color-white-40">O resto é branco em opacidades.</span></Fragment></SectionHead>
+      <ul class="ds-page__swatches">
+        {cores.map(([v, hex, uso]) => (
+          <li><span class="ds-page__swatch" style={`background:var(${v})`}></span><span class="body-md">{v}</span><span class="body-sm color-white-50">{hex} · {uso}</span></li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="padding-global container">
+      <SectionHead eyebrow="Tipografia"><Fragment slot="title">Inter, de 400 a 600, <span class="color-white-40">com espaçamento negativo.</span></Fragment></SectionHead>
+      <div class="ds-page__types">
+        {tipos.map(([c, t]) => <div class="ds-page__type"><span class="count">.{c}</span><p class={c}>{t}</p></div>)}
+      </div>
+    </section>
+
+    <section class="padding-global container">
+      <SectionHead eyebrow="Botões & ícones"><Fragment slot="title">Pílulas com estrela, <span class="color-white-40">ícones de traço fino.</span></Fragment></SectionHead>
+      <div class="ds-page__row">
+        <Button>Planejar Minha Viagem</Button>
+        <Button variant="secondary">Ver todos</Button>
+        <Button variant="secondary" icon={false}>Recusar</Button>
+        <TextLink href="#">Saber como acessar</TextLink>
+        <CloseButton />
+        <Eyebrow>Rótulo de seção</Eyebrow>
+      </div>
+      <div class="ds-page__row ds-page__icons">
+        {icones.map((n) => <span title={n}><Icon name={n} size={n.startsWith('step') ? '3rem' : '1.5rem'} /></span>)}
+        <Icon name="stars" width="3.3125rem" height=".5625rem" />
+      </div>
+    </section>
+
+    <section class="padding-global">
+      <div class="container"><SectionHead eyebrow="Grade de fios"><Fragment slot="title">HairlineGrid + cartões</Fragment></SectionHead></div>
+      <HairlineGrid columns={3}>
+        <StatCard title="Classe Executiva" subtitle="/ até 65% off" image="/assets/images/flight-cover.jpg" />
+        <JourneyStep count="ETAPA 01" subtitle="Conforto antes do embarque" title="Lounge VIP & Espera com Estilo" />
+        <PersonCard image="/assets/images/depoimentos/bonito.jpg" name="Bonito, MS" caption="Viagem entre Amigas" />
+      </HairlineGrid>
+      <HairlineGrid columns={2} tablet={1} edges="none">
+        <TripCard title="Roteiros Sob Medida" priceLabel="curadoria" price="real" image="/assets/images/servicos/roteiros.jpg"
+          properties={[{ icon: 'pin', label: 'Lugares', value: 'Testados' }, { label: 'Avaliação', value: 'stars' }]} ctaLabel="Montar Meu Roteiro" ctaHref="#" />
+        <div style="padding:var(--cell-pad)"><StepItem icon="step-1" count="01" title="Briefing Rápido" text="Você nos conta para onde quer ir." compact /></div>
+      </HairlineGrid>
+    </section>
+
+    <section class="padding-global">
+      <div class="container"><SectionHead eyebrow="Mapa"><Fragment slot="title">WorldMap <span class="color-white-40">— pontinhos luminosos e fotos.</span></Fragment></SectionHead></div>
+      <WorldMap label="Exemplo de mapa" bounds={[-30, 62, 45, 30]}
+        origin={{ nome: 'Lisboa', lat: 38.72, lon: -9.14 }}
+        points={[
+          { nome: 'Paris', lat: 48.86, lon: 2.35, iso: '250' },
+          { nome: 'Roma', lat: 41.9, lon: 12.5, iso: '380' },
+          { nome: 'Santorini', lat: 36.39, lon: 25.46, iso: '300', photo: { src: '/assets/images/destinos/grecia.jpg', alt: 'Santorini' }, thumb: { dir: 'up', dx: 0, len: 3 } },
+        ]} />
+    </section>
+
+    <section class="padding-global container ds-page__split">
+      <div>
+        <SectionHead eyebrow="Formulário" size="h3" marginBottom="2rem"><Fragment slot="title">Campos sem caixa</Fragment></SectionHead>
+        <InputGroup id="demo-nome" label="Seu nome completo" placeholder="Ex: Lucas Silva" />
+        <InputGroup id="demo-servico" as="select" label="Serviço" options={['Passagens', 'Roteiro']} />
+        <IncludedList items={[{ icon: 'included-meals', label: 'Acesso a salas VIP' }, { label: 'Suporte humano 24h' }]} />
+      </div>
+      <div>
+        <SectionHead eyebrow="Navegação lateral" size="h3" marginBottom="2rem"><Fragment slot="title">LegalNav</Fragment></SectionHead>
+        <LegalNav items={[{ label: 'Coleta de dados', href: '#' }, { label: 'Uso das informações', href: '#' }, { label: 'Seus direitos', href: '#' }]} />
+      </div>
+    </section>
+
+    <CookieBanner open>Exemplo do aviso fixo (CookieBanner). Só use se o site realmente usar cookies.</CookieBanner>
+  </main>
+</BaseLayout>
+
+<style>
+  .ds-page { padding-bottom: 12rem; }
+  .ds-page__title { margin-top: 2rem; max-width: 60rem; }
+  .ds-page__lead { margin-top: 1.5rem; }
+  code { font-size: .9em; color: var(--brand-accent); }
+  .ds-page__swatches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 2rem 1.5rem; }
+  .ds-page__swatches li { display: flex; flex-direction: column; gap: .5rem; }
+  .ds-page__swatch { height: 6rem; border: 1px solid var(--line-hairline); }
+  .ds-page__types { display: flex; flex-direction: column; border-top: 1px solid var(--line-hairline); }
+  .ds-page__type { display: grid; grid-template-columns: 8rem 1fr; align-items: baseline; padding: 1.5rem 0; border-bottom: 1px solid var(--line-hairline); overflow: hidden; }
+  .ds-page__row { display: flex; flex-wrap: wrap; align-items: center; gap: 1.5rem; }
+  .ds-page__icons { margin-top: 3rem; gap: 2rem; }
+  .ds-page__split { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; }
+  @media (max-width: 991px) {
+    .ds-page__swatches { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ds-page__split { grid-template-columns: 1fr; }
+    .ds-page__type { grid-template-columns: 1fr; gap: .5rem; }
+  }
+</style>

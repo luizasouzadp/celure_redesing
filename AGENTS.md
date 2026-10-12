@@ -20,3 +20,12 @@ Consult these guides before working on related tasks:
 - [Adding or managing content](https://docs.astro.build/en/guides/content-collections/)
 - [Adding styles or using Tailwind](https://docs.astro.build/en/guides/styling/)
 - [Supporting multiple languages](https://docs.astro.build/en/guides/internationalization/)
+
+## Design system (obrigatório)
+
+Todo trabalho de interface segue o **Celure Design System**. Antes de criar ou alterar páginas, seções ou estilos, leia [`DESIGN.md`](DESIGN.md) e use os tokens de `src/styles/tokens/` e os componentes de `src/components/ds/`. Referência completa da marca em `design-system/`. Vitrine viva em `/design-system`.
+
+## Testes
+
+- `npm test` — testes de unidade (Vitest)
+- `npm run e2e` — testes no navegador (Playwright), em desktop e celular, sobre o build

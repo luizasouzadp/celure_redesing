@@ -1,0 +1,147 @@
+---
+// Mapa-múndi escuro com pontinhos laranja luminosos. Desenhado na montagem do site (sem JS no navegador)
+// a partir dos contornos abertos do Natural Earth (pacote world-atlas), na projeção de Mercator.
+// - points: lugares com pontinho; passar o mouse/tocar mostra o nome.
+// - Pontos com `photo` ganham miniatura presa ao pontinho; o clique usa os atributos de `photo.attrs`
+//   (ex.: data-dest-photo para abrir o lightbox).
+// - origin: ponto de partida, marcado com anel e nome sempre visível.
+import { geoMercator, geoPath } from 'd3-geo';
+import { feature } from 'topojson-client';
+import world from 'world-atlas/countries-110m.json';
+
+export type MapPoint = {
+  nome: string;
+  lat: number;
+  lon: number;
+  iso?: string;
+  photo?: { src: string; alt: string; attrs?: Record<string, string> };
+  thumb?: { dir: 'up' | 'down'; dx: number; len?: number };
+};
+interface Props {
+  points: MapPoint[];
+  origin?: MapPoint;
+  originLabel?: string;
+  /** recorte do mapa: [oeste, norte, leste, sul] em graus */
+  bounds?: [number, number, number, number];
+  label: string;
+}
+const { points, origin, originLabel = 'ponto de partida', bounds = [-130, 72, 150, -52], label } = Astro.props;
+
+// Projeção recortada na região que interessa, com largura fixa de 1000 unidades
+const W = 1000;
+const projection = geoMercator().scale(1).translate([0, 0]);
+const [x0, y0] = projection([bounds[0], bounds[1]])!;
+const [x1, y1] = projection([bounds[2], bounds[3]])!;
+const k = W / (x1 - x0);
+const H = Math.round((y1 - y0) * k);
+projection.scale(k).translate([-x0 * k, -y0 * k]).clipExtent([[0, 0], [W, H]]);
+const path = geoPath(projection).digits(1);
+
+const topo = world as unknown as Parameters<typeof feature>[0] & { objects: { countries: Parameters<typeof feature>[1] } };
+const visited = new Set([...points, ...(origin ? [origin] : [])].map((p) => p.iso).filter(Boolean));
+const countries = (feature(topo, topo.objects.countries) as unknown as GeoJSON.FeatureCollection).features
+  .filter((f) => f.id !== '010') // sem Antártida
+  .map((f) => ({ d: path(f) ?? '', visited: visited.has(String(f.id)) }))
+  .filter((c) => c.d);
+
+const pos = (p: MapPoint) => {
+  const [x, y] = projection([p.lon, p.lat])!;
+  return `left:${((x / W) * 100).toFixed(2)}%;top:${((y / H) * 100).toFixed(2)}%`;
+};
+---
+<div class="ds-world-map" style={`aspect-ratio:${W} / ${H}`} role="group" aria-label={label}>
+  <svg class="ds-world-map__svg" viewBox={`0 0 ${W} ${H}`} aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+    {countries.map((c) => <path d={c.d} class:list={{ 'is-visited': c.visited }} />)}
+  </svg>
+
+  {origin && (
+    <span class="ds-world-map__origin" style={pos(origin)}>
+      <span class="ds-world-map__ring"></span>
+      <span class="ds-world-map__origin-label title-xs"><strong>{origin.nome}</strong> · {originLabel}</span>
+    </span>
+  )}
+
+  {points.map((p) => p.photo ? (
+    <button
+      type="button"
+      class:list={['ds-world-map__pin', `ds-world-map__pin--${p.thumb?.dir ?? 'up'}`]}
+      style={`${pos(p)};--dx:${p.thumb?.dx ?? 0}rem;--len:${p.thumb?.len ?? 2}rem`}
+      aria-label={`Ver foto: ${p.photo.alt}`}
+      {...p.photo.attrs}
+    >
+      <span class="ds-world-map__dot ds-world-map__dot--pulse"></span>
+      <span class="ds-world-map__stem"></span>
+      <span class="ds-world-map__thumb">
+        <img src={p.photo.src} alt="" loading="lazy" decoding="async" />
+        <span class="ds-world-map__thumb-name title-xs">{p.nome}</span>
+      </span>
+    </button>
+  ) : (
+    <span class="ds-world-map__point" style={pos(p)} tabindex="0" role="img" aria-label={p.nome}>
+      <span class="ds-world-map__dot"></span>
+      <span class="ds-world-map__tip title-xs" aria-hidden="true">{p.nome}</span>
+    </span>
+  ))}
+</div>
+
+<style>
+  .ds-world-map { position: relative; width: 100%; }
+  .ds-world-map__svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .ds-world-map__svg path { fill: var(--map-land); stroke: var(--map-border); stroke-width: .6; vector-effect: non-scaling-stroke; }
+  .ds-world-map__svg path.is-visited { fill: var(--map-visited); }
+
+  /* Pontinho luminoso: o centro laranja + um halo que "respira" */
+  .ds-world-map__point, .ds-world-map__pin, .ds-world-map__origin { position: absolute; width: 0; height: 0; z-index: 1; }
+  .ds-world-map__dot {
+    position: absolute; left: -.25rem; top: -.25rem; width: .5rem; height: .5rem; border-radius: 50%;
+    background: var(--brand-accent); box-shadow: 0 0 .5rem .125rem var(--map-dot-glow);
+  }
+  .ds-world-map__dot--pulse::after {
+    content: ''; position: absolute; inset: -.25rem; border-radius: 50%; border: 1px solid var(--brand-accent);
+    animation: ds-map-pulse 2.4s var(--ease-out) infinite;
+  }
+  @keyframes ds-map-pulse { from { transform: scale(.6); opacity: 1; } to { transform: scale(2.6); opacity: 0; } }
+
+  /* Nome do país ao passar o mouse ou focar com o teclado */
+  /* Área de toque de 1.5rem centrada no ponto (maior que o pontinho, para mouse e dedo) */
+  .ds-world-map__point { width: 1.5rem; height: 1.5rem; margin: -.75rem 0 0 -.75rem; outline: none; }
+  .ds-world-map__point .ds-world-map__dot { left: .5rem; top: .5rem; }
+  /* Telas de toque: área maior para o dedo (o pontinho continua do mesmo tamanho) */
+  @media (pointer: coarse) {
+    .ds-world-map__point { width: 2.5rem; height: 2.5rem; margin: -1.25rem 0 0 -1.25rem; }
+    .ds-world-map__point .ds-world-map__dot { left: 1rem; top: 1rem; }
+    .ds-world-map__tip { bottom: 2rem; }
+  }
+  .ds-world-map__tip {
+    position: absolute; left: 50%; bottom: 1.25rem; transform: translate(-50%, .25rem); white-space: nowrap;
+    padding: .375rem .625rem; border-radius: var(--radius-pill); background: var(--white-100); color: var(--brand-green); font-weight: 600;
+    opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .ds-world-map__point:hover, .ds-world-map__point:focus-visible { z-index: 3; }
+  .ds-world-map__point:hover .ds-world-map__tip, .ds-world-map__point:focus-visible .ds-world-map__tip { opacity: 1; transform: translate(-50%, 0); }
+  .ds-world-map__point:focus-visible .ds-world-map__dot { outline: 2px solid var(--white-100); outline-offset: 2px; }
+
+  /* Ponto de partida */
+  .ds-world-map__ring { position: absolute; left: -.5rem; top: -.5rem; width: 1rem; height: 1rem; border-radius: 50%; border: 1.5px solid var(--brand-accent); box-shadow: 0 0 .75rem var(--map-dot-glow); }
+  .ds-world-map__origin-label { position: absolute; left: 1rem; top: -.45rem; white-space: nowrap; color: var(--white-60); }
+  .ds-world-map__origin-label strong { color: var(--white-100); font-weight: 600; }
+
+  /* Pino com foto: haste fina + miniatura; deslocamento lateral --dx evita sobreposição */
+  .ds-world-map__pin { padding: 0; border: 0; background: none; color: inherit; cursor: pointer; z-index: 2; }
+  .ds-world-map__stem { position: absolute; left: 0; width: 1px; height: var(--len); background: var(--white-40); }
+  .ds-world-map__pin--up .ds-world-map__stem { bottom: .375rem; }
+  .ds-world-map__pin--down .ds-world-map__stem { top: .375rem; }
+  .ds-world-map__thumb { position: absolute; left: var(--dx); width: 5.5rem; transform: translateX(-50%); display: flex; flex-direction: column; gap: .375rem; }
+  .ds-world-map__pin--up .ds-world-map__thumb { bottom: calc(var(--len) + .375rem); }
+  .ds-world-map__pin--down .ds-world-map__thumb { top: calc(var(--len) + .375rem); }
+  .ds-world-map__thumb img { width: 5.5rem; height: 5.5rem; object-fit: cover; outline: 1px solid var(--white-20); transition: outline-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+  .ds-world-map__thumb-name { text-align: center; white-space: nowrap; color: var(--white-100); font-weight: 600; }
+  .ds-world-map__pin--up .ds-world-map__thumb-name { order: -1; }
+  .ds-world-map__pin:hover, .ds-world-map__pin:focus-visible { z-index: 4; }
+  .ds-world-map__pin:hover img, .ds-world-map__pin:focus-visible img { outline: 2px solid var(--brand-accent); transform: scale(1.06); }
+  .ds-world-map__pin:focus-visible { outline: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ds-world-map__dot--pulse::after { animation: none; opacity: 0; }
+  }
+</style>

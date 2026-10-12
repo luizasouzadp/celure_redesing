@@ -1,0 +1,22 @@
+---
+// Janela de tela cheia para foto ou vídeo: fundo escuro (ink) quase opaco, botão fechar no canto.
+// Abre/fecha pelo atributo `hidden`; o comportamento (teclas, cliques) fica no script de quem usa.
+import CloseButton from './CloseButton.astro';
+interface Props { id: string; label: string; closeId: string }
+const { id, label, closeId } = Astro.props;
+---
+<div id={id} class="ds-lightbox" role="dialog" aria-modal="true" aria-label={label} hidden>
+  <CloseButton id={closeId} class="ds-lightbox__close" />
+  <slot />
+</div>
+
+<style>
+  .ds-lightbox {
+    position: fixed; inset: 0; z-index: 200; display: flex; align-items: center; justify-content: center;
+    padding: 4.5rem var(--container-pad); background: rgba(9, 27, 32, .96);
+    animation: ds-lightbox-in var(--dur-panel) var(--ease);
+  }
+  .ds-lightbox[hidden] { display: none; }
+  .ds-lightbox :global(.ds-lightbox__close) { position: absolute; top: 1.5rem; right: var(--container-pad); }
+  @keyframes ds-lightbox-in { from { opacity: 0; } to { opacity: 1; } }
+</style>

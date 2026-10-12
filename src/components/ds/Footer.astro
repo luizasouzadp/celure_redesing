@@ -1,0 +1,76 @@
+---
+// Rodapé: marca + frase, colunas de links, contatos e uma barra inferior dividida por fios (white-20).
+import Icon from './Icon.astro';
+export type FooterLink = { label: string; href: string; external?: boolean };
+interface Props {
+  brand?: string;
+  tagline?: string;
+  columns?: { title: string; links: FooterLink[] }[];
+  copy?: string;
+  legalLinks?: (Omit<FooterLink, 'href'> & { href?: string })[];
+  credit?: string;
+  bigWord?: string;
+}
+const { brand = 'Celure', tagline, columns = [], copy, legalLinks = [], credit, bigWord } = Astro.props;
+const ext = (l: FooterLink) => (l.external ? { target: '_blank', rel: 'noopener noreferrer' } : {});
+---
+<footer class="ds-footer">
+  <div class="ds-footer__main container">
+    <div class="ds-footer__brand">
+      <p class="ds-footer__logo"><Icon name="celure-mark" size="1.25rem" /><span>{brand}</span></p>
+      {tagline && <p class="body-sm color-white-60">{tagline}</p>}
+      <slot name="brand" />
+    </div>
+    {columns.map((col) => (
+      <div class="ds-footer__col">
+        <p class="body-md color-white-40">{col.title}</p>
+        <ul>
+          {col.links.map((l) => <li><a href={l.href} class="body-md" {...ext(l)}>{l.label}</a></li>)}
+        </ul>
+      </div>
+    ))}
+    <slot />
+  </div>
+  {bigWord && <p class="ds-footer__big h1" aria-hidden="true">{bigWord}</p>}
+  <div class="ds-footer__bar">
+    {copy && <p class="ds-footer__copy button-sm">{copy}</p>}
+    <div class="ds-footer__legal">{legalLinks.map((l) => (l.href ? <a href={l.href} class="button-sm" {...ext(l as FooterLink)}>{l.label}</a> : <span class="button-sm color-white-60">{l.label}</span>))}</div>
+    {credit && <p class="ds-footer__credit button-sm color-white-40">{credit}</p>}
+  </div>
+</footer>
+
+<style>
+  .ds-footer { padding-top: var(--section-pad); border-top: 1px solid var(--line-chrome); }
+  .ds-footer__main { display: flex; gap: 2rem; padding-bottom: var(--section-pad); }
+  .ds-footer__brand { width: 22.5%; flex-shrink: 0; display: flex; flex-direction: column; gap: 1rem; }
+  .ds-footer__logo { display: flex; align-items: center; gap: .5rem; font-size: var(--logo-title-size); font-weight: 600; letter-spacing: var(--logo-title-ls); line-height: 130%; }
+  .ds-footer__col { flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+  .ds-footer__col ul { display: flex; flex-direction: column; gap: .5rem; }
+  .ds-footer__col a { display: inline-block; padding: .25rem 0; }
+  .ds-footer a { transition: color var(--dur-fast) var(--ease); }
+  .ds-footer a:hover { color: var(--brand-accent); }
+  .ds-footer__big {
+    /* A palavra "assenta" no fio da barra inferior: a base das letras é cortada de propósito */
+    padding: 0 var(--container-pad); line-height: .78; color: var(--white-10);
+    font-size: 30vw; letter-spacing: -.06em; white-space: nowrap; overflow: hidden; user-select: none;
+  }
+  .ds-footer__bar { display: flex; align-items: stretch; border-top: 1px solid var(--line-chrome); }
+  .ds-footer__copy { padding: 1.875rem var(--container-pad); border-right: 1px solid var(--line-chrome); line-height: 125%; }
+  .ds-footer__legal { display: flex; align-items: center; gap: 1.5rem; padding: 0 2.5rem; }
+  .ds-footer__credit { margin-left: auto; display: flex; align-items: center; padding: 0 var(--container-pad); }
+  @media (max-width: 991px) {
+    .ds-footer__main { flex-wrap: wrap; gap: 2.5rem 2rem; }
+    .ds-footer__brand { width: 100%; }
+    .ds-footer__col { flex: 1 1 14rem; }
+    .ds-footer__bar { flex-wrap: wrap; }
+    .ds-footer__copy { width: 100%; border-right: 0; border-bottom: 1px solid var(--line-chrome); padding: 1.25rem var(--container-pad); }
+    .ds-footer__legal { padding: 1.25rem var(--container-pad); }
+    .ds-footer__credit { padding: 1.25rem var(--container-pad); }
+  }
+  /* Celular: espaço no fim para o botão flutuante do WhatsApp não cobrir o texto */
+  @media (max-width: 767px) {
+    .ds-footer { padding-bottom: 5.5rem; }
+    .ds-footer__col ul { gap: 0; }
+    .ds-footer__col a { padding: .625rem 0; }
+  }
+</style>

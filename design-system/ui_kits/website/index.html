@@ -1,0 +1,40 @@
+<!-- @dsCard group="Website" viewport="1280x820" name="Celure website" subtitle="Home, serviço, contato, privacidade — click-through" -->
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8"><title>Celure — UI kit</title>
+<link rel="stylesheet" href="../../styles.css">
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+</head><body>
+<div id="root"></div>
+<script type="text/babel" src="Home.jsx"></script>
+<script type="text/babel" src="Pages.jsx"></script>
+<script type="text/babel">
+const { Header, Footer, CookieBanner } = window.CelureDesignSystem_c0924c;
+function App() {
+  const [route, setRoute] = React.useState(() => { try { return JSON.parse(localStorage.getItem('celure-kit-route')) || { page: 'home' }; } catch (e) { return { page: 'home' }; } });
+  const [cookie, setCookie] = React.useState(true);
+  const go = (page, id) => { const r = { page, id }; setRoute(r); localStorage.setItem('celure-kit-route', JSON.stringify(r)); window.scrollTo(0, 0); };
+  const nav = (href) => { if (href.startsWith('#')) { go('home'); setTimeout(() => { const el = document.querySelector(href); if (el) window.scrollTo(0, el.offsetTop - 72); }, 50); } else go(href); };
+  window.__goPriv = () => go('privacidade');
+  const links = [{ label: 'Sobre Nós', href: '#sobre' }, { label: 'Experiência VIP', href: '#vip' }, { label: 'Clientes & Histórias', href: '#historias' }, { label: 'Serviços', href: '#servicos', active: route.page === 'servico' }];
+  return (
+    <>
+      <Header links={links} accentLabel={{ label: 'Falar no WhatsApp', href: 'contato' }} onNavigate={nav} homeHref="home" />
+      {route.page === 'home' && <Home go={go} />}
+      {route.page === 'servico' && <ServicePage id={route.id} go={go} />}
+      {route.page === 'contato' && <ContactPage />}
+      {route.page === 'privacidade' && <PrivacyPage />}
+      <Footer visualSrc={route.page === 'home' ? '../../assets/img/footer.webp' : undefined} tagline='"Somos um estilo de viagem moderno, suave e autêntico."'
+        columns={[{ title: 'Navegação Rápida', links: [{ label: 'Sobre a Celure', href: '#' }, { label: 'Depoimentos de Clientes', href: '#' }, { label: 'Serviços & Consultoria', href: '#' }] }]}
+        contacts={['@celure_turismo', 'Atuação remota para todo o Brasil e exterior', 'CNPJ: 59.865.172/0001-70']}
+        copy="© 2026 Celure Viagens e Turismo" legalLinks={[{ label: 'Política de Privacidade', href: '#' }]} credit="De viajantes para viajantes" />
+      <CookieBanner open={cookie} text="Usamos cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa Política de Privacidade." onAccept={() => setCookie(false)} onDecline={() => setCookie(false)} onClose={() => setCookie(false)} />
+    </>
+  );
+}
+document.addEventListener('click', (e) => { const a = e.target.closest('footer a'); if (a && a.textContent === 'Política de Privacidade') { e.preventDefault(); window.__goPriv && window.__goPriv(); } });
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body></html>
