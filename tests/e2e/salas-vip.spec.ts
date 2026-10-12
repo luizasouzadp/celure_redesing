@@ -55,3 +55,41 @@ test('"Saber como acessar" abre a janela das salas VIP sem mudar o endereço', a
   expect(page.url()).toBe(url);
   expect(errors).toEqual([]);
 });
+
+test('teclado: a janela rola com PageDown/setas logo ao abrir', async ({ page }) => {
+  await page.goto('/');
+  const link = page.locator('#luxo [data-modal-open="salas-vip"]');
+  await link.scrollIntoViewIfNeeded();
+  await link.press('Enter');
+  const body = page.locator('#salas-vip .ds-modal__body');
+  await expect(page.locator('#salas-vip')).toBeVisible();
+  await page.keyboard.press('PageDown');
+  await page.keyboard.press('ArrowDown');
+  await expect.poll(() => body.evaluate((el) => el.scrollTop)).toBeGreaterThan(0);
+  await expect(page.locator('#salas-vip')).toBeVisible();
+});
+
+test('selecionar texto e soltar o mouse fora do painel não fecha a janela', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop');
+  await page.goto('/');
+  const link = page.locator('#luxo [data-modal-open="salas-vip"]');
+  await link.scrollIntoViewIfNeeded();
+  await link.click();
+  const box = (await page.locator('#salas-vip-title').boundingBox())!;
+  await page.mouse.move(box.x + 10, box.y + 10);
+  await page.mouse.down();
+  await page.mouse.move(5, 5, { steps: 5 });
+  await page.mouse.up();
+  await expect(page.locator('#salas-vip')).toBeVisible();
+});
+
+test('abrir a janela não desloca a página de trás para o lado', async ({ page }, info) => {
+  test.skip(info.project.name !== 'desktop');
+  await page.goto('/');
+  const link = page.locator('#luxo [data-modal-open="salas-vip"]');
+  await link.scrollIntoViewIfNeeded();
+  const before = await page.evaluate(() => document.documentElement.clientWidth);
+  await link.click();
+  await expect(page.locator('#salas-vip')).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.clientWidth)).toBe(before);
+});

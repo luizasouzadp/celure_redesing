@@ -9,7 +9,7 @@ const { id, labelledby, class: className } = Astro.props;
 <div id={id} class:list={['ds-modal', className]} role="dialog" aria-modal="true" aria-labelledby={labelledby} hidden>
   <div class="ds-modal__panel">
     <CloseButton class="ds-modal__close" data-modal-close />
-    <div class="ds-modal__body"><slot /></div>
+    <div class="ds-modal__body" tabindex="-1"><slot /></div>
   </div>
 </div>
 
@@ -25,7 +25,8 @@ const { id, labelledby, class: className } = Astro.props;
     position: relative; display: flex; width: min(72rem, 100%); max-height: calc(100svh - 4rem);
     background: var(--ink-900); border: 1px solid var(--line-hairline);
   }
-  .ds-modal__body { flex: 1; min-width: 0; overflow-y: auto; overscroll-behavior: contain; }
+  /* a área que rola recebe o foco ao abrir: setas, PageDown e espaço rolam o texto */
+  .ds-modal__body { flex: 1; min-width: 0; overflow-y: auto; overscroll-behavior: contain; outline: none; }
   /* o X fica sempre no canto, por cima do conteúdo que rola; área de toque de 40px */
   .ds-modal__panel :global(.ds-modal__close) {
     position: absolute; top: 1rem; right: 1rem; z-index: 1; width: 2.5rem; height: 2.5rem; place-items: center;
@@ -43,17 +44,24 @@ const { id, labelledby, class: className } = Astro.props;
 <script>
   const FOCUSABLE = 'a[href], button:not([disabled]), input:not([disabled]), select, textarea, video[controls], [tabindex]:not([tabindex="-1"])';
   let opener: HTMLElement | null = null;
+  // só fecha pelo fundo se o clique começou no fundo (selecionar texto e soltar fora não fecha)
+  let downOnBackdrop = false;
+  document.addEventListener('pointerdown', (e) => { downOnBackdrop = (e.target as HTMLElement).classList?.contains('ds-modal') ?? false; });
 
   function open(modal: HTMLElement, from: HTMLElement) {
     opener = from;
     modal.hidden = false;
-    document.documentElement.classList.add('ds-modal-open');
-    modal.querySelector<HTMLElement>('[data-modal-close]')?.focus();
+    const html = document.documentElement;
+    // sem a barra de rolagem a página de trás pularia para o lado: reserva o espaço dela, se ela existir
+    if (innerWidth > html.clientWidth) html.style.scrollbarGutter = 'stable';
+    html.classList.add('ds-modal-open');
+    modal.querySelector<HTMLElement>('.ds-modal__body')?.focus();
   }
 
   function close(modal: HTMLElement) {
     modal.hidden = true;
     document.documentElement.classList.remove('ds-modal-open');
+    document.documentElement.style.scrollbarGutter = '';
     opener?.focus();
     opener = null;
   }
@@ -67,7 +75,7 @@ const { id, labelledby, class: className } = Astro.props;
       return;
     }
     const modal = target.closest<HTMLElement>('.ds-modal');
-    if (modal && (target === modal || target.closest('[data-modal-close]'))) close(modal);
+    if (modal && ((target === modal && downOnBackdrop) || target.closest('[data-modal-close]'))) close(modal);
   });
 
   document.addEventListener('keydown', (e) => {
