@@ -50,6 +50,7 @@ Feitas para o site real e documentadas aqui para não se perderem:
 - Piso de 12,5px no tamanho-raiz para notebooks pequenos.
 - `--ease-out` e `--dur-reveal` (curva e duração das entradas).
 - Ícones `arrow-left`, `arrow-right` e `play`, e o logo do WhatsApp (`whatsapp`).
+- Ícones das salas VIP: `lounge-drinks`, `lounge-shower`, `lounge-rest`, `lounge-wifi`, `lounge-quiet` (mesmo traço de 1,5px).
 - Exceção de marca de terceiros: o botão flutuante do WhatsApp usa o verde oficial (`--whatsapp-green`) para ser reconhecido na hora; no hover vira laranja como os demais botões.
 - `Eyebrow`, `Lightbox`, prop `template` no `HairlineGrid`, `description` no `TripCard`, `text` no `IncludedList`.
 - Uma leve sombra escura na base das fotos do `PersonCard`, só para garantir a leitura do nome.
