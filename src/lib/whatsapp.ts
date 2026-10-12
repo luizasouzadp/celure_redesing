@@ -1,7 +1,7 @@
 import { celure } from '../config/celure';
 
 export type QuoteInput = { name: string; service: string; destination: string; dates: string; travelers: string; details: string };
-export type CtaService = 'passagens' | 'consultoria-milhas' | 'roteiro' | 'experiencias' | 'geral';
+export type CtaService = 'passagens' | 'consultoria-milhas' | 'roteiro' | 'experiencias' | 'salas-vip' | 'geral';
 
 export function getWhatsAppUrl(text: string, phone: string = celure.phone): string {
   return `https://wa.me/${phone.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`;
@@ -30,6 +30,7 @@ const CTA_TAILS: Record<CtaService, string> = {
   'consultoria-milhas': 'a Consultoria de Milhas e Cartões de Crédito para otimizar meus gastos e acelerar minhas viagens.',
   roteiro: 'um Roteiro Personalizado e planejamento completo sob medida para a minha viagem.',
   experiencias: 'o planejamento de uma Viagem Exclusiva e personalizada sob medida.',
+  'salas-vip': 'como ter acesso às salas VIP dos aeroportos nas minhas próximas viagens.',
   geral: 'o planejamento de uma viagem personalizada e exclusiva.',
 };
 

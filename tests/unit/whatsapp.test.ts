@@ -42,6 +42,7 @@ describe('ctaMessage', () => {
     ['consultoria-milhas', 'a Consultoria de Milhas e Cartões de Crédito para otimizar meus gastos e acelerar minhas viagens.'],
     ['roteiro', 'um Roteiro Personalizado e planejamento completo sob medida para a minha viagem.'],
     ['experiencias', 'o planejamento de uma Viagem Exclusiva e personalizada sob medida.'],
+    ['salas-vip', 'como ter acesso às salas VIP dos aeroportos nas minhas próximas viagens.'],
     ['geral', 'o planejamento de uma viagem personalizada e exclusiva.'],
     ['desconhecido', 'o planejamento de uma viagem personalizada e exclusiva.'],
     [null, 'o planejamento de uma viagem personalizada e exclusiva.'],
