@@ -3,9 +3,9 @@
 //   0 → 0,70  o vídeo avança quadro a quadro, sem texto por cima (só o indicador "Role para embarcar")
 //   0,70 → 0,85  o último quadro fica de fundo, escurece, e a frase de impacto surge no centro
 //   0,85 → 1  a frase segura na tela; depois a página segue normalmente
-// Quadros extraídos do vídeo em public/assets/hero-embarque (ver DESIGN.md para trocar o vídeo).
-const FRAMES = 96;
-const frame = (i: number) => `/assets/hero-embarque/${String(i).padStart(3, '0')}.webp`;
+// Quadros extraídos do vídeo em public/assets/hero-aviao (ver DESIGN.md para trocar o vídeo).
+const FRAMES = 128;
+const frame = (i: number) => `/assets/hero-aviao/${String(i).padStart(3, '0')}.webp`;
 const provas = [
   { n: '+30', t: 'Países explorados pelo fundador' },
   { n: '100%', t: 'Roteiros sob medida & humanos' },
@@ -50,7 +50,7 @@ const provas = [
   if (section && canvas) {
     const total = Number(section.dataset.frames);
     const ctx = canvas.getContext('2d')!;
-    const src = (i: number) => `/assets/hero-embarque/${String(i + 1).padStart(3, '0')}.webp`;
+    const src = (i: number) => `/assets/hero-aviao/${String(i + 1).padStart(3, '0')}.webp`;
     const frames: HTMLImageElement[] = Array.from({ length: total }, () => new Image());
     const VIDEO_END = 0.7; // o vídeo termina em 70% da rolagem; depois vem a frase
 
