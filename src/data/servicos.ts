@@ -16,7 +16,7 @@ export type Servico = {
 
 export const servicos: Servico[] = [
   {
-    img: '/assets/images/servicos/passagens.jpg', alt: 'Mão tocando um tablet com mapa-múndi e rotas de voo saindo de São Paulo',
+    img: '/assets/images/servicos/passagens-2026.jpg', alt: 'Mão tocando um tablet com mapa-múndi e rotas de voo saindo de São Paulo',
     titulo: 'Emissão Inteligente de Passagens',
     descricao: 'Buscamos a melhor tarifa em dinheiro ou milhas — sem abrir mão do conforto.',
     priceLabel: 'economia de', price: 'até 60%',
@@ -27,7 +27,7 @@ export const servicos: Servico[] = [
     cta: 'passagens', ctaLabel: 'Cotar Passagens',
   },
   {
-    img: '/assets/images/servicos/milhas.jpg', alt: 'Cartão Celure na maquininha, com moedas virando um avião rumo ao mundo',
+    img: '/assets/images/servicos/milhas-2026.jpg', alt: 'Cartão Celure na maquininha, com moedas virando um avião rumo ao mundo',
     titulo: 'Consultoria de Milhas & Cartões',
     descricao: 'Transformamos seus gastos do dia a dia em passagens e upgrades reais.',
     priceLabel: 'plano', price: 'sob medida',
@@ -38,7 +38,7 @@ export const servicos: Servico[] = [
     cta: 'consultoria-milhas', ctaLabel: 'Agendar Consultoria',
   },
   {
-    img: '/assets/images/servicos/roteiros.jpg', alt: 'Globo sobre a mesa ligado a ícones de passeio de barco, gastronomia e cultura',
+    img: '/assets/images/servicos/roteiros-2026.jpg', alt: 'Globo sobre a mesa ligado a ícones de passeio de barco, gastronomia e cultura',
     titulo: 'Roteiros Sob Medida',
     descricao: 'Seu dia a dia planejado com lugares já testados pelo fundador.',
     priceLabel: 'curadoria', price: 'real',
@@ -49,7 +49,7 @@ export const servicos: Servico[] = [
     cta: 'roteiro', ctaLabel: 'Montar Meu Roteiro',
   },
   {
-    img: '/assets/images/servicos/premium.jpg', alt: 'Mulher brindando ao pôr do sol diante do mar, com convite exclusivo Celure',
+    img: '/assets/images/servicos/premium-2026.jpg', alt: 'Mulher brindando ao pôr do sol diante do mar, com convite exclusivo Celure',
     titulo: 'Experiências Premium',
     descricao: 'Hotéis boutique, passeios privativos e reservas exclusivas.',
     priceLabel: 'cortesias', price: 'VIP',
