@@ -54,6 +54,7 @@ Feitas para o site real e documentadas aqui para não se perderem:
 - Exceção de marca de terceiros: o botão flutuante do WhatsApp usa o verde oficial (`--whatsapp-green`) para ser reconhecido na hora; no hover vira laranja como os demais botões.
 - `Eyebrow`, `Lightbox`, `Modal`, prop `template` no `HairlineGrid`, `description` no `TripCard`, `text` no `IncludedList`.
 - Uma leve sombra escura na base das fotos do `PersonCard`, só para garantir a leitura do nome.
+- Deslize automático das histórias (`Depoimentos.astro`): a faixa anda sozinha, bem devagar (18px por segundo) e em ciclo sem fim; para com o mouse em cima, ao tocar, ao usar as setas (volta após 5s) e fica parada para quem pede "reduzir movimento".
 - `WorldMap`: mapa-múndi desenhado na montagem do site a partir dos contornos abertos do Natural Earth (pacote `world-atlas`, domínio público), com tokens próprios `--map-land`, `--map-border`, `--map-visited` e `--map-dot-glow`. Os pontinhos laranja têm um brilho suave — a única "luz" permitida no sistema, pedida para o mapa. Os países ficam em `src/data/viagens.ts`.
 
 ## Imagens

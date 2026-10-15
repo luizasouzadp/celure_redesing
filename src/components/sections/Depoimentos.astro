@@ -1,6 +1,7 @@
 ---
 // Clientes & Histórias: célula de texto fixa à esquerda (título, nota 5.0, setas) e, à direita,
-// uma faixa rolável de PersonCards com a foto real da viagem e o relato.
+// uma faixa rolável de PersonCards com a foto real da viagem e o relato. A faixa desliza sozinha,
+// bem devagar e em ciclo contínuo; para quando a pessoa passa o mouse, toca ou usa as setas.
 import HairlineGrid from '../ds/HairlineGrid.astro';
 import PersonCard from '../ds/PersonCard.astro';
 import Eyebrow from '../ds/Eyebrow.astro';
@@ -60,6 +61,8 @@ const legenda = (assinatura: string) => assinatura.replace(/^@\S+\s·\s/, '');
     display: grid; grid-auto-flow: column; grid-auto-columns: minmax(17rem, 22rem);
     overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; outline-offset: -2px;
   }
+  /* Com o deslize automático ligado, o encaixe por card atrapalharia o movimento contínuo */
+  .depo__track[data-auto] { scroll-snap-type: none; }
   .depo__track::-webkit-scrollbar { display: none; }
   .depo__track > :global(*) { scroll-snap-align: start; border-left: 1px solid var(--line-hairline); }
   .depo__track > :global(*:first-child) { border-left: 0; }
@@ -70,13 +73,94 @@ const legenda = (assinatura: string) => assinatura.replace(/^@\S+\s·\s/, '');
 </style>
 
 <script>
-  // Setas: rolam a largura de um card
+  // Deslize automático em ciclo: os cards são copiados uma vez no fim da faixa (cópias invisíveis
+  // para leitores de tela) e, quando a primeira leva inteira sai de cena, a posição volta ao início
+  // sem salto visível. Setas e gestos pausam o movimento por alguns segundos.
   const track = document.getElementById('testimonial-carousel');
-  document.querySelectorAll<HTMLElement>('[data-testimonial-scroll]').forEach((btn) =>
-    btn.addEventListener('click', () => {
-      if (!track) return;
-      const card = track.firstElementChild as HTMLElement | null;
-      const width = card ? card.offsetWidth : 320;
-      track.scrollBy({ left: width * Number(btn.dataset.testimonialScroll), behavior: 'smooth' });
-    }));
+  const SPEED = 18; // px por segundo: bem devagar
+  const RESUME_AFTER = 5000;
+
+  if (track) {
+    const originals = Array.from(track.children) as HTMLElement[];
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cardWidth = () => originals[0]?.offsetWidth || 320;
+    let auto = false;
+    let pos = 0;
+    let setWidth = 0;
+    let hovering = false;
+    let focused = false;
+    let visible = false;
+    let holdUntil = 0;
+    let last = 0;
+    let target: number | null = null; // destino da última seta, enquanto a rolagem suave acontece
+
+    const measure = () => {
+      const firstClone = track.querySelector<HTMLElement>('[data-clone]');
+      setWidth = firstClone ? firstClone.offsetLeft - originals[0].offsetLeft : 0;
+    };
+    const wrap = () => {
+      if (!setWidth) return;
+      if (pos >= setWidth) pos -= setWidth;
+      else if (pos < 0) pos += setWidth;
+    };
+    const hold = (ms = RESUME_AFTER) => { holdUntil = performance.now() + ms; };
+
+    if (!reduce && originals.length > 1) {
+      auto = true;
+      originals.forEach((card) => {
+        const clone = card.cloneNode(true) as HTMLElement;
+        clone.dataset.clone = '';
+        clone.setAttribute('aria-hidden', 'true');
+        clone.inert = true;
+        track.appendChild(clone);
+      });
+      track.dataset.auto = '';
+      measure();
+      addEventListener('resize', measure);
+
+      track.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hovering = true; });
+      track.addEventListener('pointerleave', () => { hovering = false; });
+      track.addEventListener('focusin', () => { focused = true; });
+      track.addEventListener('focusout', () => { focused = false; });
+      ['pointerdown', 'touchstart', 'wheel'].forEach((ev) =>
+        track.addEventListener(ev, () => hold(), { passive: true }));
+
+      new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(track);
+
+      const tick = (now: number) => {
+        const dt = last ? Math.min(now - last, 100) : 0;
+        last = now;
+        const paused = hovering || focused || !visible || document.hidden || now < holdUntil;
+        if (now >= holdUntil) target = null;
+        if (paused) {
+          pos = track.scrollLeft; // acompanha o que a pessoa rolou à mão
+        } else {
+          pos += (SPEED * dt) / 1000;
+          wrap();
+          track.scrollLeft = pos;
+        }
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }
+
+    // Setas: vão para o card vizinho
+    document.querySelectorAll<HTMLElement>('[data-testimonial-scroll]').forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const dir = Number(btn.dataset.testimonialScroll);
+        const w = cardWidth();
+        if (!auto) {
+          track.scrollBy({ left: w * dir, behavior: 'smooth' });
+          return;
+        }
+        // cliques seguidos partem do destino anterior, não do meio do caminho
+        pos = target ?? track.scrollLeft;
+        hold();
+        // perto das pontas, troca para a leva equivalente antes de rolar, para o ciclo não ter fim
+        if (dir < 0 && pos < w) { pos += setWidth; track.scrollLeft = pos; }
+        if (dir > 0 && pos >= setWidth - w) { pos -= setWidth; track.scrollLeft = pos; }
+        target = (Math.round(pos / w) + dir) * w;
+        track.scrollTo({ left: target, behavior: 'smooth' });
+      }));
+  }
 </script>
